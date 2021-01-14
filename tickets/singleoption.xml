@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<{PLACEPREVIEW}OrderRequest>
+    <Order>
+        <Instrument>
+            <Product>
+            <callPut>{CALLPUT}</callPut>
+            <expiryDay>{EXPDAY}</expiryDay>
+            <expiryMonth>{EXPMONTH}</expiryMonth>
+            <expiryYear>{EXPYEAR}</expiryYear>
+            <securityType>OPTN</securityType>
+            <strikePrice>{STRIKE}</strikePrice>
+            <symbol>{SYMBOL}</symbol>
+            </Product>
+            <orderAction>{ORDERACTION}</orderAction>
+            <orderedQuantity>{QUANTITY}</orderedQuantity>
+            <quantity>{QUANTITY}</quantity>
+        </Instrument>
+        <allOrNone>{ALLORNONE}</allOrNone>
+        <limitPrice>{LIMITPRICE}</limitPrice>
+        <marketSession>REGULAR</marketSession>
+        <orderTerm>GOOD_FOR_DAY</orderTerm>
+        <priceType>LIMIT</priceType>
+    </Order>{PREVIEWID}
+    <clientOrderId>{CLIENTORDERID}</clientOrderId>
+    <orderType>OPTN</orderType>
+</{PLACEPREVIEW}OrderRequest>
