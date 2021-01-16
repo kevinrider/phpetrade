@@ -259,13 +259,13 @@ I've written up five general XML tickets that should cover nearly all option ord
 
 - Single Leg: Calls or Puts
 - Double Leg: Spreads, Strangles, Straddles, and Calenders
-- Tripe Leg: Call/Put Butterfly
+- Triple Leg: Call/Put Butterfly
 - Quad Leg: Iron Condor, Iron Butterfly, Call/Put Condors
-- Buy Writes: Stock + Single Option leg (i.e Covered Call)
+- Buy Writes: Stock + Single Option leg
 
 Call/Put Condors were not tested but should work as a Quad Leg. Collars should also be possible, but would require creating a new ticket.  Collars would be two option `<Instrument>` tags and one equity `<Instrument>` tag.
 
-I also did not implement the Change Order Preview and Place Changed Order for options, although these should be straight forward as well.  The only difference between a new order preview/place and a change preview/place
+I also did not implement the Change Order Preview and Place Changed Order for options, although these should be straight forward.  The only difference between a new order preview/place and a change preview/place
 is that the URL path includes the `orderId` that is being changed.  So if you have Preview/Place order working correctly, adapting to an existing order is a matter of just pulling the orderId you
 want to change and putting it in the URL path, examples are given in the sample.php file for an equity order.
 
