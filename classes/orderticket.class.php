@@ -1,10 +1,7 @@
 <?php
 
-//This class is used to fill out XML order "tickets".
-//The tickets are templates that are filled out with
-//the required order parameters.
-//Using the tickets keeps the XML identical (other than opening
-//tags and previewId) between the preview and place order process.
+//Class handles all of the OAuth signing and header creation and HTTP communication.
+//Assumes XML body response (default for ETrade API v1).
 
 class OrderTicket
 {
@@ -27,9 +24,21 @@ class OrderTicket
         {
             $this->file_name = "$this->root_dir/doubleoption.xml";
         }
+        elseif($ticket_type == "triple")
+        {
+            $this->file_name = "$this->root_dir/tripleoption.xml";
+        }
+        elseif($ticket_type == "quad")
+        {
+            $this->file_name = "$this->root_dir/quadoption.xml";
+        }
+        elseif($ticket_type == "buywrite")
+        {
+            $this->file_name = "$this->root_dir/buywrite.xml";
+        }
         else 
         {
-            $message = "Ticket Load: $ticket_type Does Not Exist";
+            $message = "Ticket Load: $ticket_file Does Not Exist";
             $this->TicketError("$message");
         }
         if(file_exists($this->file_name)) 
