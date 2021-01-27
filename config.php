@@ -55,17 +55,17 @@ defineConst('URL_OPTIONCHAINS',	ETRADE_SERVER . '/v1/market/optionchains');
 defineConst('URL_EXPIRYDATES', ETRADE_SERVER . '/v1/market/optionexpiredate');
 
 //Alerts Endpoints
-defineConst('LIST_ALERTS_URL', ETRADE_OAUTH_SERVER . '/v1/user/alerts');
-defineConst('ALERT_DETAILS_URL', ETRADE_OAUTH_SERVER . '/v1/user/alerts');
-defineConst('DELETE_ALERT_URL', ETRADE_OAUTH_SERVER . '/v1/user/alerts');
+defineConst('LIST_ALERTS_URL', ETRADE_SERVER . '/v1/user/alerts');
+defineConst('ALERT_DETAILS_URL', ETRADE_SERVER . '/v1/user/alerts');
+defineConst('DELETE_ALERT_URL', ETRADE_SERVER . '/v1/user/alerts');
 
 //Order Endpoints
-defineConst('ORDER_LIST_URL', ETRADE_OAUTH_SERVER . '/v1/accounts/accountkeyid/orders');
-defineConst('ORDER_PREVIEW_URL', ETRADE_OAUTH_SERVER . '/v1/accounts/accountkeyid/orders/preview');
-defineConst('ORDER_PLACE_URL', ETRADE_OAUTH_SERVER . '/v1/accounts/accountkeyid/orders/place');
-defineConst('ORDER_CANCEL_URL', ETRADE_OAUTH_SERVER . '/v1/accounts/accountkeyid/orders/cancel');
-defineConst('ORDER_CHANGE_PREVIEW_URL', ETRADE_OAUTH_SERVER . '/v1/accounts/accountkeyid/orders/orderid/change/preview');
-defineConst('ORDER_CHANGE_PLACE_URL', ETRADE_OAUTH_SERVER . '/v1/accounts/accountkeyid/orders/orderid/change/place');
+defineConst('ORDER_LIST_URL', ETRADE_SERVER . '/v1/accounts/accountkeyid/orders');
+defineConst('ORDER_PREVIEW_URL', ETRADE_SERVER . '/v1/accounts/accountkeyid/orders/preview');
+defineConst('ORDER_PLACE_URL', ETRADE_SERVER . '/v1/accounts/accountkeyid/orders/place');
+defineConst('ORDER_CANCEL_URL', ETRADE_SERVER . '/v1/accounts/accountkeyid/orders/cancel');
+defineConst('ORDER_CHANGE_PREVIEW_URL', ETRADE_SERVER . '/v1/accounts/accountkeyid/orders/orderid/change/preview');
+defineConst('ORDER_CHANGE_PLACE_URL', ETRADE_SERVER . '/v1/accounts/accountkeyid/orders/orderid/change/place');
 
 function defineConst($name,$value)
 {
