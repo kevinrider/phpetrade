@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__) . "/config.php");
+require_once __DIR__ . '/vendor/autoload.php';
 
 //Setup the OAuth 1.0a exchange.
 //Must have pecl oauth installed and enabled in php.ini.
@@ -59,8 +59,8 @@ else
 
 //Write the new config.php file with the access token's swapped in.
 
-$file_name = dirname(__FILE__) . "/tokens.tpl";
-$out_name = dirname(__FILE__) . "/tokens.php";
+$file_name = dirname(__FILE__) . "/src/tokens.tpl";
+$out_name = dirname(__FILE__) . "/src/tokens.php";
 
 $fd = fopen($file_name,"r");
 $file_data = fread($fd, filesize($file_name));

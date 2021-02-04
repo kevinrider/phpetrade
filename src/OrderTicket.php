@@ -1,11 +1,12 @@
 <?php
+namespace phpetrade;
 
 //Class handles all of the OAuth signing and header creation and HTTP communication.
 //Assumes XML body response (default for ETrade API v1).
 
 class OrderTicket
 {
-    function __construct($root_dir)
+    public function __construct($root_dir)
     {
         $this->root_dir = $root_dir;
         $this->file_name = "";
@@ -14,7 +15,7 @@ class OrderTicket
     }
    
     //Load File and Set Root
-    function LoadOptionOrderTicket($ticket_type)
+    public function LoadOptionOrderTicket($ticket_type)
     {
         if($ticket_type == "single")
         {
@@ -54,19 +55,19 @@ class OrderTicket
         }
     }
     
-    function Parse($key, $value)
+    public function Parse($key, $value)
     {
         $key = '/{' . "$key" . '}/';
         $this->ticket_data = preg_replace("$key","$value",$this->ticket_data);
     }
     
-    function Clone()
+    public function Clone()
     {
         $this->ticket_clone = "$this->ticket_data";
     }
     
     //Raise Error Function
-    function TicketError($message)
+    public function TicketError($message)
     {
             trigger_error($message);
             exit;

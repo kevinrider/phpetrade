@@ -1,0 +1,23 @@
+{
+    "name": "kevinrider/phpetrade",
+    "description": "PHP E*Trade REST API v1 Client Library",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "^7.2"
+    },
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Kevin Rider",
+            "email": "github@thebackwaters.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "phpetrade\\": "src/"
+        },
+	"files": ["src/config.php","src/tokens.php"]
+    }
+
+}

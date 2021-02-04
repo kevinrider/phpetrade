@@ -1,9 +1,10 @@
 <?php
 exit;
-require_once(dirname(__FILE__) . "/../config.php");
-require_once(dirname(__FILE__) . "/../classes/oauthhttp.class.php");
-require_once(dirname(__FILE__) . "/../classes/accounts.class.php");
-require_once(dirname(__FILE__) . "/../classes/orderticket.class.php");
+require_once __DIR__ . '/../vendor/autoload.php';
+use phpetrade\Accounts;
+use phpetrade\OAuthHTTP;
+use phpetrade\OrderTicket;
+
 $ac_obj = new Accounts();
 
 $ac = $ac_obj->GetAccountList();
@@ -11,7 +12,7 @@ $account_id_key = (string) $ac->Accounts->Account->accountIdKey;
 
 
 //Build Up Single Leg Option Order Ticket
-$order_ticket = new OrderTicket(dirname(__FILE__) . "/../tickets");
+$order_ticket = new OrderTicket(dirname(__FILE__) . "/../src/tickets");
 $order_ticket->LoadOptionOrderTicket("single");
 
 $client_order_id = "gbAaEdWPlVWI301";  //Some unique random order id
@@ -66,7 +67,7 @@ if($preview_id != "")
 
 
 //Build Up Two Leg Option Order Ticket
-$order_ticket = new OrderTicket(dirname(__FILE__) . "/../tickets");
+$order_ticket = new OrderTicket(dirname(__FILE__) . "/../src/tickets");
 $order_ticket->LoadOptionOrderTicket("double");
 
 $client_order_id = "gbAaEdWPlVWIi";  //Some unique random order id
@@ -129,7 +130,7 @@ if($preview_id != "")
 }
 
 //Build Up Three Leg Option Order Ticket
-$order_ticket = new OrderTicket(dirname(__FILE__) . "/../tickets");
+$order_ticket = new OrderTicket(dirname(__FILE__) . "/../src/tickets");
 $order_ticket->LoadOptionOrderTicket("triple");
 
 $client_order_id = "gbAaEdWPl191";  //Some unique random order id
@@ -203,7 +204,7 @@ if($preview_id != "")
 }
 
 //Build Up Four Leg Option Order Ticket
-$order_ticket = new OrderTicket(dirname(__FILE__) . "/../tickets");
+$order_ticket = new OrderTicket(dirname(__FILE__) . "/../src/tickets");
 $order_ticket->LoadOptionOrderTicket("quad");
 
 $client_order_id = "gbAaEdWPl3";  //Some unique random order id
@@ -285,7 +286,7 @@ if($preview_id != "")
 }
 
 //Build Up Another Four Leg Option Order Ticket
-$order_ticket = new OrderTicket(dirname(__FILE__) . "/../tickets");
+$order_ticket = new OrderTicket(dirname(__FILE__) . "/../src/tickets");
 $order_ticket->LoadOptionOrderTicket("quad");
 
 $client_order_id = "gbAaEdWPl5";  //Some unique random order id
@@ -368,7 +369,7 @@ if($preview_id != "")
 }
 
 //Build Up Buy Write (Stock + Single Leg Option) Order Ticket
-$order_ticket = new OrderTicket(dirname(__FILE__) . "/../tickets");
+$order_ticket = new OrderTicket(dirname(__FILE__) . "/../src/tickets");
 $order_ticket->LoadOptionOrderTicket("buywrite");
 
 $client_order_id = "gbAaEdWPlVWI7";  //Some unique random order id

@@ -1,15 +1,17 @@
 <?php
+namespace phpetrade;
 
 //Preps the url and query string for the ETrade API "Accounts" end points
 //before passing the final url to oauthhttp class
 
 class Accounts
 {
+    use EndPointTrait;
     
     public function GetAccountList()
     {
         //No input parameters
-        return $this->getAccountsResponse(URL_ACCOUNTLIST);
+        return $this->getResponse(URL_ACCOUNTLIST);
     }
 
     public function GetAccountBalance($account_id_key,$queryStringArray)
@@ -19,7 +21,7 @@ class Accounts
         {
             $this_url = $this->buildFullURL($this_url,$queryStringArray);
         }
-        return $this->getAccountsResponse($this_url);
+        return $this->getResponse($this_url);
     }
 
     public function GetAccountTransactions($account_id_key,$queryStringArray)
@@ -29,7 +31,7 @@ class Accounts
         {
             $this_url = $this->buildFullURL($this_url,$queryStringArray);
         }
-        return $this->getAccountsResponse($this_url);
+        return $this->getResponse($this_url);
     }
 
     public function GetAccountTransactionDetails($account_id_key,$tran_id,$queryStringArray)
@@ -40,7 +42,7 @@ class Accounts
         {
             $this_url = $this->buildFullURL($this_url,$queryStringArray);
         }
-        return $this->getAccountsResponse($this_url);
+        return $this->getResponse($this_url);
     }
 
     public function GetAccountPortfolio($account_id_key,$queryStringArray)
@@ -50,16 +52,11 @@ class Accounts
         {
             $this_url = $this->buildFullURL($this_url,$queryStringArray);
         }
-        return $this->getAccountsResponse($this_url);
+        return $this->getResponse($this_url);
 
     }
 
-    private function getAccountsResponse($url,$method = 'GET')
-    {
-        print "$url\n";
-        $OAuthHTTPObj = new OAuthHTTP($url);
-        return $OAuthHTTPObj->GetResponse();
-    }
+    
 
     public function buildFullURL($url,$queryParamsArray)
     {

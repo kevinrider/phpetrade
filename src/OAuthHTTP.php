@@ -1,4 +1,5 @@
 <?php
+namespace phpetrade;
 
 //Class handles all of the OAuth signing and header creation and HTTP communication.
 //Assumes XML body response (default for ETrade API v1).
@@ -15,7 +16,7 @@ class OAuthHTTP
 
     public function GetResponse()
     {
-        $oauth = new OAuth(APP_KEY,APP_SECRET,OAUTH_SIG_METHOD_HMACSHA1,OAUTH_AUTH_TYPE_AUTHORIZATION);
+        $oauth = new \OAuth(APP_KEY,APP_SECRET,OAUTH_SIG_METHOD_HMACSHA1,OAUTH_AUTH_TYPE_AUTHORIZATION);
         $oauth->setToken(OAUTH_ACCESS_TOKEN,OAUTH_ACCESS_TOKEN_SECRET);
         $oauth->enableDebug();
         try 
@@ -41,7 +42,16 @@ class OAuthHTTP
                 //GET is used for everything else
                 $oauth->fetch($this->url);
             }
-            $response_as_object = new SimpleXMLElement($oauth->getLastResponse());
+            
+            if($oauth->getLastResponse() == "")
+            {
+                //Response is empty
+                $response_as_object = false;
+            }
+            else 
+            {
+                $response_as_object = new \SimpleXMLElement($oauth->getLastResponse());
+            }
             return $response_as_object;             
         } 
         catch (Exception $E) 

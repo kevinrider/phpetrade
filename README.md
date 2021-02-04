@@ -1,6 +1,9 @@
 
 # phpetrade
 
+Dev branch is moving to PHP composer and removing the OAuth pecl dependency.  Dev is currently stable and can be used with composer autoloading, OAuth pecl has not been removed yet though.
+installation now requires copying config.php.example to config.php in the src directory and filling in your keys as described below.
+
 A library of php classes and examples that connects to the [E*Trade v1 REST API](https://apisb.etrade.com/docs/api/account/api-account-v1.html).
 Accounts, Alerts, Market, and Order end points are fully implemented.  The Authorization endpoint has all functions implemented except Renew/Revoke Access token methods.
 

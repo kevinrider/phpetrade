@@ -3,9 +3,10 @@
  * ETrade API v1 config.php
  *
  */
+namespace phpetrade;
 
 //Set Tokens
-require_once("tokens.php");
+require_once __DIR__ . '/tokens.php';
 
 //Query production or sandbox environments?
 $str = 'sandbox' ;// options : prod, sandbox

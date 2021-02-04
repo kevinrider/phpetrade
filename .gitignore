@@ -1,0 +1,5 @@
+composer.phar
+/vendor/
+/nbproject/private/
+/nbproject/
+config.php

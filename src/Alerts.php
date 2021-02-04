@@ -1,15 +1,17 @@
 <?php
+namespace phpetrade;
 
 //Preps the url and query string for the ETrade API "Alerts" end points
 //before passing the final url to oauthhttp class
 
 class Alerts
 {
+    use EndPointTrait;
     
     public function AlertsList($queryStringArray)
     {
         $this_url = $this->buildFullURL(LIST_ALERTS_URL,$queryStringArray);
-        return $this->getAlertResponse($this_url);
+        return $this->getResponse($this_url);
     }
 
     public function AlertsListDetails($queryStringArray)
@@ -24,7 +26,7 @@ class Alerts
         {
             $this_url = $this->buildFullURL(ALERT_DETAILS_URL,$queryStringArray);
         }
-        return $this->getAlertResponse($this_url);
+        return $this->getResponse($this_url);
     }
 
     public function AlertsDelete($queryStringArray)
@@ -40,15 +42,10 @@ class Alerts
             $this_url = $this->buildFullURL(DELETE_ALERT_URL,$queryStringArray);
         }
         $method = "DELETE";
-        return $this->getAlertResponse($this_url,$method);
+        return $this->getResponse($this_url,$method);
     }
 
-    private function getAlertResponse($url,$method = 'GET')
-    {
-        print "$url\n";
-        $OAuthHTTPObj = new OAuthHTTP($url,$method);
-        return $OAuthHTTPObj->GetResponse();
-    }
+    
     
     public function buildFullURL($url,$queryParamsArray)
     {

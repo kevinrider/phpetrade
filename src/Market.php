@@ -1,11 +1,13 @@
 <?php
+namespace phpetrade;
 
 //Preps the url and query string for the ETrade API "Market" end points
 //before passing the final url to oauthhttp class
 
 class Market
 {
-    
+    use EndPointTrait;
+
     public function MarketGetQuotes($queryStringArray)
     {
         //No input parameters
@@ -18,7 +20,7 @@ class Market
         {
             $this_url = $this->buildFullURL(URL_GETQUOTE,$queryStringArray);
         }
-        return $this->getMarketResponse($this_url);
+        return $this->getResponse($this_url);
     }
 
     public function MarketLookUp($queryStringArray)
@@ -33,7 +35,7 @@ class Market
         {
             $this_url = $this->buildFullURL(URL_MARKETLOOKUP,$queryStringArray);
         }
-        return $this->getMarketResponse($this_url);
+        return $this->getResponse($this_url);
     }
 
     public function MarketGetOptionChain($queryStringArray)
@@ -48,7 +50,7 @@ class Market
         {
             $this_url = $this->buildFullURL(URL_OPTIONCHAINS,$queryStringArray);
         }
-        return $this->getMarketResponse($this_url);
+        return $this->getResponse($this_url);
     }
 
     public function MarketGetOptionExp($queryStringArray)
@@ -63,15 +65,10 @@ class Market
         {
             $this_url = $this->buildFullURL(URL_EXPIRYDATES,$queryStringArray);
         }
-        return $this->getMarketResponse($this_url);
+        return $this->getResponse($this_url);
     }
 
-    private function getMarketResponse($url,$method = 'GET')
-    {
-        print "$url\n";
-        $OAuthHTTPObj = new OAuthHTTP($url);
-        return $OAuthHTTPObj->GetResponse();
-    }
+    
 
     public function buildFullURL($url,$queryParamsArray)
     {

@@ -1,11 +1,11 @@
 <?php
 exit;
-require_once(dirname(__FILE__) . "/../config.php");
-require_once(dirname(__FILE__) . "/../classes/oauthhttp.class.php");
-require_once(dirname(__FILE__) . "/../classes/accounts.class.php");
-require_once(dirname(__FILE__) . "/../classes/market.class.php");
-require_once(dirname(__FILE__) . "/../classes/alerts.class.php");
-require_once(dirname(__FILE__) . "/../classes/order.class.php");
+require_once __DIR__ . '/../vendor/autoload.php';
+use phpetrade\Accounts;
+use phpetrade\OAuthHTTP;
+use phpetrade\Market;
+use phpetrade\Alerts;
+use phpetrade\Order;
 
 $ac_obj = new Accounts();
 
@@ -148,8 +148,8 @@ $order_preview_para["PreviewOrderRequest"]["Order"]["Instrument"]["quantity"] = 
 //exit;
 
 $ord_preview = $ord_obj->PreviewOrder($account_id_key,$order_preview_para);
-print_r($ord_preview);
-exit;
+//print_r($ord_preview);
+//exit;
 
 
 //Get the previewId for this order
@@ -157,7 +157,7 @@ $preview_id = $ord_preview->PreviewIds->previewId;
 
 //Place Order
 //EQ
-$client_order_id = "IP7tkL5";  
+$client_order_id = "IP7tkL51";  
 $order_place_para["PlaceOrderRequest"]["orderType"] = "EQ"; 
 $order_place_para["PlaceOrderRequest"]["clientOrderId"] = "$client_order_id";
 $order_place_para["PlaceOrderRequest"]["PreviewIds"]["previewId"] = "$preview_id";

@@ -1,8 +1,9 @@
 <?php
 exit;
-require_once(dirname(__FILE__) . "/../config.php");
-require_once(dirname(__FILE__) . "/../classes/oauthhttp.class.php");
-require_once(dirname(__FILE__) . "/../classes/accounts.class.php");
+require_once __DIR__ . '/../vendor/autoload.php';
+use phpetrade\Accounts;
+use phpetrade\OAuthHTTP;
+
 $ac_obj = new Accounts();
 
 $ac = $ac_obj->GetAccountList();
