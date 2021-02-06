@@ -107,7 +107,7 @@ The OAuth session is now setup and you can start issuing request with the API.  
 than 2 hours the Access keys are expired on the server side and you must authenticate again.
 
 ## Classes
-In the classes directory are the libraries for each endpoint: accounts, market, alerts, and orders.
+In the src directory are the libraries for each endpoint: accounts, market, alerts, and orders.
 The oauthhttp class implements the communication stack (OAuth+HTTP) for each API request.
 The orderticket class is for order types beyond simple equity orders, such as single and multi leg
 option orders.
