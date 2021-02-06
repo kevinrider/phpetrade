@@ -129,7 +129,7 @@ print_r($ord_list);
 
 //Preview Order
 //EQ
-$client_order_id = "IP7tkL9";  //Client submitted order id that is the same for both the preview and the place order.
+$client_order_id = "IP7tkL97";  //Client submitted order id that is the same for both the preview and the place order.
 $order_preview_para["PreviewOrderRequest"]["orderType"] = "EQ"; //EQ, OPTN, SPREADS, BUT_WRITES,BUTTERFLY,IRON_BUTTERFLY,CONDOR,IRON_CONDOR,MF,MMF
 $order_preview_para["PreviewOrderRequest"]["clientOrderId"] = "$client_order_id";
 $order_preview_para["PreviewOrderRequest"]["Order"]["allOrNone"] = "true";
@@ -157,7 +157,7 @@ $preview_id = $ord_preview->PreviewIds->previewId;
 
 //Place Order
 //EQ
-$client_order_id = "IP7tkL51";  
+$client_order_id = "IP7tkL97";  
 $order_place_para["PlaceOrderRequest"]["orderType"] = "EQ"; 
 $order_place_para["PlaceOrderRequest"]["clientOrderId"] = "$client_order_id";
 $order_place_para["PlaceOrderRequest"]["PreviewIds"]["previewId"] = "$preview_id";

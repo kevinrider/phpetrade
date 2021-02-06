@@ -2,9 +2,6 @@
     "name": "kevinrider/phpetrade",
     "description": "PHP E*Trade REST API v1 Client Library",
     "type": "library",
-    "require": {
-        "guzzlehttp/guzzle": "^7.2"
-    },
     "license": "Apache-2.0",
     "authors": [
         {
@@ -12,6 +9,9 @@
             "email": "github@thebackwaters.com"
         }
     ],
+    "require": {
+	    "php": ">=7.2"
+    },
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {

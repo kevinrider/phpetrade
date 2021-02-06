@@ -1,8 +1,6 @@
 
 # phpetrade
 
-Dev branch is moving to PHP composer and removing the OAuth pecl dependency.  Dev is currently stable and can be used with composer autoloading, OAuth pecl has not been removed yet though.  Installation now requires copying config.php.example to config.php in the src directory and filling in your keys as described below.
-
 A library of php classes and examples that connects to the [E*Trade v1 REST API](https://apisb.etrade.com/docs/api/account/api-account-v1.html).
 Accounts, Alerts, Market, and Order end points are fully implemented.  The Authorization endpoint has all functions implemented except Renew/Revoke Access token methods.
 
@@ -28,11 +26,11 @@ if you are going short.  Do not use priceType=MARKET trades unless you want an i
 
 In order to use this code you need to have an E*Trade API account setup.  Visit this [link](https://developer.etrade.com/home) and click the Log On button to start the process.
 
-[Download](https://github.com/kevinrider/phpetrade/archive/main.zip) the source code and expand it to a folder of your choice.  You will need
+Clone or download the repository to a directory of your choice.  You will need
 a working PHP 7 cli and the excellent [pecl oauth library](https://pecl.php.net/package/oauth) installed 
-in order to use phpetrader.  
+in order to use phpetrade.  
 
-Installing on Ubuntu will go something like this.  INSTALL_DIR is wherever you decided to expand the download.  The code
+Installing on Ubuntu will go something like this.  INSTALL_DIR is wherever you decided to clone phpetrade.  The code
 can be installed anywhere and does not necessarily need to be installed in a web server accessible directory.  All example scripts run from the command line.
 ```
 sudo apt-get install php7.2-cli
@@ -55,8 +53,18 @@ If php-cli and pecl oauth module install correctly but you don't see OAuth => en
 enable the module in php-cli php.ini file (which is different than the php web server module php.ini).  The
 cli php.ini is usually available at something like: /etc/php/7.2/cli/php.ini (where 7.2 is the php version you are currently using).  Depending on the operating system you're using, the php.ini may be stored someplace else or is even the same as the web server module php.ini.
 
+## Composer
+
+This library uses Composer autoloading and will be available on Packagist soon.  To setup the autoloading:
+```
+cd INSTALL_DIR/phpetrade
+curl -sS https://getcomposer.org/installer | php
+php composer.phar update
+```
+Currently there are no requirements other than PHP 7.2 or greater.  However using composer will setup the autoloading of the API endpoint classes and a few config files.
+
 ## Authentication
-Open phpetrade/config.php and fill in your APP_KEY and APP_SECRET on lines 16 and/or 22.  If you have sandbox keys only, then only
+Copy phpetrade/src/config.php.example to phpetrade/src/config.php and fill in your APP_KEY and APP_SECRET.  If you have sandbox keys only, then only
 copy those into the sandbox keys in the code and vice versa for production keys.  Set the sandbox/production environment on line 11, the default is sandbox.
 
 Logging into the E*Trade API is a two step process because the API uses the OAuth 1.0a specification.
