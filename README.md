@@ -55,7 +55,7 @@ cli php.ini is usually available at something like: /etc/php/7.2/cli/php.ini (wh
 
 ## Composer
 
-This library uses Composer autoloading and will be available on [Packagist](https://packagist.org/packages/kevinrider/phpetrade) as well.  To setup the autoloading:
+This library uses Composer autoloading and is available on [Packagist](https://packagist.org/packages/kevinrider/phpetrade) as well.  To setup the autoloading:
 ```
 cd INSTALL_DIR/phpetrade
 curl -sS https://getcomposer.org/installer | php
