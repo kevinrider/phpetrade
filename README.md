@@ -61,7 +61,8 @@ cd INSTALL_DIR/phpetrade
 curl -sS https://getcomposer.org/installer | php
 php composer.phar update
 ```
-Currently there are no requirements other than PHP 7.2 or greater.  However using composer will setup the autoloading of the API endpoint classes and a few config files.
+Currently there are no requirements other than PHP 7.2 or greater.  However using composer will setup the autoloading of the API endpoint classes and a few config files.  If you install phpetrade from Packagist through a composer.json requirement (for building your own project), remember to cd  PROJECT_DIR/vendor/kevinrider/phpetrade and run
+```composer install``` in order to generate the autoload.php file for the included auth.php and example scripts.
 
 ## Authentication
 Copy phpetrade/src/config.php.example to phpetrade/src/config.php and fill in your APP_KEY and APP_SECRET.  If you have sandbox keys only, then only
