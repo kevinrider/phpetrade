@@ -1,4 +1,6 @@
 <?php
+//WARNING: THIS EXAMPLE SENDS LIVES ORDERS TO YOUR E*TRADE ACCOUNT THROUGH THE API!
+//WARNING: DO NOT EXECUTE THIS EXAMPLE AGAINST A PRODUCTION ACCOUNT DURING MARKET HOURS!
 exit;
 require_once __DIR__ . '/../vendor/autoload.php';
 use phpetrade\Accounts;
@@ -129,7 +131,7 @@ print_r($ord_list);
 
 //Preview Order
 //EQ
-$client_order_id = "IP7tkL97";  //Client submitted order id that is the same for both the preview and the place order.
+$client_order_id = 'test' . rand_order_id(); //Some unique random order id
 $order_preview_para["PreviewOrderRequest"]["orderType"] = "EQ"; //EQ, OPTN, SPREADS, BUT_WRITES,BUTTERFLY,IRON_BUTTERFLY,CONDOR,IRON_CONDOR,MF,MMF
 $order_preview_para["PreviewOrderRequest"]["clientOrderId"] = "$client_order_id";
 $order_preview_para["PreviewOrderRequest"]["Order"]["allOrNone"] = "true";
@@ -157,7 +159,6 @@ $preview_id = $ord_preview->PreviewIds->previewId;
 
 //Place Order
 //EQ
-$client_order_id = "IP7tkL97";  
 $order_place_para["PlaceOrderRequest"]["orderType"] = "EQ"; 
 $order_place_para["PlaceOrderRequest"]["clientOrderId"] = "$client_order_id";
 $order_place_para["PlaceOrderRequest"]["PreviewIds"]["previewId"] = "$preview_id";
@@ -181,6 +182,7 @@ print_r($ord_place);
 //Cancel Order
 $iiii = 0;
 //Get the most recent open order from the order list (requested above);
+$ord_list = $ord_obj->ListOrders($account_id_key,$order_list_para);
 $cancel_order_id = $ord_list->Order->$iiii->orderId;
 /*
 $order_cancel_para["CancelOrderRequest"]["orderId"] = "$cancel_order_id";
@@ -192,7 +194,7 @@ exit;
 
 //Change Preview Order
 //EQ
-$client_order_id = "IP7tkL6";
+$client_order_id = 'test' . rand_order_id(); //Some unique random order id
 $order_id = $ord_list->Order->$iiii->orderId;
 $order_change_preview_para["PreviewOrderRequest"]["orderType"] = "EQ"; 
 $order_change_preview_para["PreviewOrderRequest"]["clientOrderId"] = "$client_order_id";
@@ -213,7 +215,6 @@ print_r($ord_change_preview);
 
 //Place Changed Preview Order
 //EQ
-$client_order_id = "IP7tkL6";
 $order_id = $ord_list->Order->$iiii->orderId;
 $preview_id = $ord_change_preview->PreviewIds->previewId;
 $order_place_change_para["PlaceOrderRequest"]["orderType"] = "EQ"; 
@@ -233,5 +234,15 @@ echo $ord_obj->encodeXML($order_place_change_para,'',0);
 $ord_place_preview = $ord_obj->PlaceChangeOrder($account_id_key,$order_id,$order_place_change_para);
 print_r($ord_place_preview);
 
-
+function rand_order_id($limit = 16) 
+{
+    $input = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $input_length = strlen($input);
+    $random_string = '';
+    for($i = 0; $i < $limit; $i++) {
+        $random_character = $input[mt_rand(0, $input_length - 1)];
+        $random_string .= $random_character;
+    }
+    return $random_string;
+}
 ?>

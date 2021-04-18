@@ -45,7 +45,7 @@ catch (OAuthException $E)
 
 if(isset($access_token_info['oauth_token']) and isset($access_token_info['oauth_token_secret']))
 {
-    echo "Here is your final authorized token and has been written to tokens.php";
+    echo "Final access tokens have been written to tokens.php";
     echo "\n---------------------------------------------------------------\n";
     echo "\nToken   : ". $access_token_info['oauth_token'];
     echo "\nSecret  : ". $access_token_info['oauth_token_secret'];

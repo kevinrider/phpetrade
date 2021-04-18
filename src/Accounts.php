@@ -54,9 +54,7 @@ class Accounts
         }
         return $this->getResponse($this_url);
 
-    }
-
-    
+    } 
 
     public function buildFullURL($url,$queryParamsArray)
     {

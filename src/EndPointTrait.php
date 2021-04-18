@@ -6,7 +6,6 @@ trait EndPointTrait
  
     private function getResponse($url,$method = 'GET',$orderRequestArray = '')
     {
-        print "$url\n";
         $OAuthHTTPObj = new OAuthHTTP($url,$method);
         if($orderRequestArray != "")
         {

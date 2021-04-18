@@ -73,14 +73,10 @@ class Market
     public function buildFullURL($url,$queryParamsArray)
     {
         $query_string = "";
-        print_r($queryParamsArray);
         foreach($queryParamsArray as $k=>$v)
         {
-            //print "$k - $v\n";
-            //print_r($v);
             if(is_array($v) && $k == "symbols")
             {
-                //print_r($queryParamsArray["$k"]);
                 //ETrade API does not like symbol to be urlencoded.
                 //$symbol_string = "/" . implode(',',array_filter(array_map('urlencode', $v)));
                 $symbols_string = "/" . implode(',', array_filter($v));
@@ -101,7 +97,7 @@ class Market
             {
             }
         }
-        //exit;
+
         $query_string = rtrim($query_string,"&");
         if(isset($symbols_string))
         {
@@ -123,7 +119,7 @@ class Market
         {
             $full_url = $url . "?" . $query_string;
         }
-        //$full_url = $url . $symbol_string;
+        
         return $full_url;
     }
 }

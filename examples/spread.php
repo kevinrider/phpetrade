@@ -1,4 +1,6 @@
 <?php
+//WARNING: THIS EXAMPLE SENDS A LIVE ORDER TO YOUR E*TRADE ACCOUNT THROUGH THE API!
+//WARNING: DO NOT EXECUTE THIS EXAMPLE AGAINST A PRODUCTION ACCOUNT DURING MARKET HOURS!
 exit;
 require_once __DIR__ . '/../vendor/autoload.php';
 use phpetrade\Accounts;
@@ -9,7 +11,7 @@ $ac_obj = new Accounts();
 $ac = $ac_obj->GetAccountList();
 $account_id_key = (string) $ac->Accounts->Account->accountIdKey;
 
-$client_order_id = "gbAaEdWPlVWI617"; //Some unique random order id
+$client_order_id = 'test' . rand_order_id(); //Some unique random order id
 $url = str_replace("accountkeyid",$account_id_key,ORDER_PREVIEW_URL);
 print "$url\n";
 $OAuthHTTPObj = new OAuthHTTP($url,"POST");
@@ -38,8 +40,8 @@ function preview_request($client_order_id)
             <Instrument>
                   <Product>
                      <callPut>PUT</callPut>
-                     <expiryDay>19</expiryDay>
-                     <expiryMonth>02</expiryMonth>
+                     <expiryDay>17</expiryDay>
+                     <expiryMonth>12</expiryMonth>
                      <expiryYear>2021</expiryYear>
                      <securityType>OPTN</securityType>
                      <strikePrice>369</strikePrice>
@@ -52,8 +54,8 @@ function preview_request($client_order_id)
             <Instrument>
                   <Product>
                      <callPut>PUT</callPut>
-                     <expiryDay>19</expiryDay>
-                     <expiryMonth>02</expiryMonth>
+                     <expiryDay>17</expiryDay>
+                     <expiryMonth>12</expiryMonth>
                      <expiryYear>2021</expiryYear>
                      <securityType>OPTN</securityType>
                      <strikePrice>359</strikePrice>
@@ -84,8 +86,8 @@ function place_request($client_order_id,$preview_id)
             <Instrument>
                   <Product>
                      <callPut>PUT</callPut>
-                     <expiryDay>19</expiryDay>
-                     <expiryMonth>02</expiryMonth>
+                     <expiryDay>17</expiryDay>
+                     <expiryMonth>12</expiryMonth>
                      <expiryYear>2021</expiryYear>
                      <securityType>OPTN</securityType>
                      <strikePrice>369</strikePrice>
@@ -98,8 +100,8 @@ function place_request($client_order_id,$preview_id)
             <Instrument>
                   <Product>
                      <callPut>PUT</callPut>
-                     <expiryDay>19</expiryDay>
-                     <expiryMonth>02</expiryMonth>
+                     <expiryDay>17</expiryDay>
+                     <expiryMonth>12</expiryMonth>
                      <expiryYear>2021</expiryYear>
                      <securityType>OPTN</securityType>
                      <strikePrice>359</strikePrice>
@@ -123,5 +125,17 @@ function place_request($client_order_id,$preview_id)
       <orderType>SPREADS</orderType>
     </PlaceOrderRequest>";
 return $post_request_temp;
+}
+
+function rand_order_id($limit = 16) 
+{
+    $input = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $input_length = strlen($input);
+    $random_string = '';
+    for($i = 0; $i < $limit; $i++) {
+        $random_character = $input[mt_rand(0, $input_length - 1)];
+        $random_string .= $random_character;
+    }
+    return $random_string;
 }
 ?>

@@ -23,18 +23,18 @@ class OAuthHTTP
         {
             if($this->method == "POST")
             {
-                //POST REQUESTS are used for Preview/Place Order
+                //POST requests are used for Preview/Place Order
                 //$oauth->setAuthType(OAUTH_AUTH_TYPE_FORM);
                 $oauth->fetch($this->url,$this->post_request,OAUTH_HTTP_METHOD_POST,array('Content-Type' => "application/$this->content_type"));
             }
             elseif($this->method == "DELETE")
             {
-                //DELETE REQUESTS are used only delete alerts
+                //DELETE requests only delete alerts
                 $oauth->fetch($this->url,'',OAUTH_HTTP_METHOD_DELETE);
             }
             elseif($this->method == "PUT")
             {
-                //PUT REQUESTS are used to cancel or preview then update an order
+                //PUT requests are used to cancel or preview then update an order
                 $oauth->fetch($this->url,$this->post_request,OAUTH_HTTP_METHOD_PUT,array('Content-Type' => "application/$this->content_type"));
             }
             else
@@ -42,15 +42,23 @@ class OAuthHTTP
                 //GET is used for everything else
                 $oauth->fetch($this->url);
             }
-            
+
+            $oauth_response_info = $oauth->getLastResponseInfo();
+            $oauth_response_content_type = $oauth_response_info['content_type'];
             if($oauth->getLastResponse() == "")
             {
                 //Response is empty
                 $response_as_object = false;
             }
+            elseif(preg_match('/^application\/xml/i', $oauth_response_content_type))
+            {
+                //Response returned xml
+                $response_as_object = new \SimpleXMLElement($oauth->getLastResponse());
+            }
             else 
             {
-                $response_as_object = new \SimpleXMLElement($oauth->getLastResponse());
+                //Response returned something else, most likely a string (Renew/Revoke Token)
+                $response_as_object = $oauth->getLastResponse();
             }
             return $response_as_object;             
         } 

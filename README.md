@@ -2,7 +2,7 @@
 # phpetrade
 
 A library of php classes and examples that connects to the [E*Trade v1 REST API](https://apisb.etrade.com/docs/api/account/api-account-v1.html).
-Accounts, Alerts, Market, and Order end points are fully implemented.  The Authorization endpoint has all functions implemented except Renew/Revoke Access token methods.
+Authorization, Accounts, Alerts, Market, and Order end points are fully implemented.
 
 
 ## Disclosure
