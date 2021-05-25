@@ -66,7 +66,7 @@ Currently there are no requirements other than PHP 7.2 or greater.  However usin
 
 ## Authentication
 Copy phpetrade/src/Config.php.example to phpetrade/src/Config.php and fill in your app_key and app_secret.  If you have sandbox keys only, then only
-copy those into the sandbox keys in the code and vice versa for production keys.  Set the sandbox/production environment on line 11, the default is sandbox.
+copy those into the sandbox keys in the code and vice versa for production keys.  The default environment is set to sandbox.
 
 Logging into the E*Trade API is a two step process because the API uses the OAuth 1.0a specification.
 
