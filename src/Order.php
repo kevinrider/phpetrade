@@ -9,10 +9,16 @@ namespace phpetrade;
 class Order
 {
     use EndPointTrait;
+    public $config;
+
+    function __construct()
+    {
+        $this->config = new Config(true);
+    }
     
     public function ListOrders($account_id_key,$queryStringArray)
     {
-        $this_url = str_replace("accountkeyid",$account_id_key,ORDER_LIST_URL);
+        $this_url = str_replace("accountkeyid",$account_id_key,$this->config->order_list_url);
         if(isset($queryStringArray) && $queryStringArray != "")
         {
             $this_url = $this->buildFullURL($this_url,$queryStringArray);
@@ -22,7 +28,7 @@ class Order
     
     public function PreviewOrder($account_id_key,$orderRequestArray)
     {
-        $this_url = str_replace("accountkeyid",$account_id_key,ORDER_PREVIEW_URL);
+        $this_url = str_replace("accountkeyid",$account_id_key,$this->config->order_preview_url);
         if(!isset($orderRequestArray) || $orderRequestArray == "")
         {
             print "Must submit order to Preview Order!\n";
@@ -33,7 +39,7 @@ class Order
     
     public function PlaceOrder($account_id_key,$orderRequestArray)
     {
-        $this_url = str_replace("accountkeyid",$account_id_key,ORDER_PLACE_URL);
+        $this_url = str_replace("accountkeyid",$account_id_key,$this->config->order_place_url);
         if(!isset($orderRequestArray) || $orderRequestArray == "")
         {
             print "Must submit order to Place Order!\n";
@@ -44,7 +50,7 @@ class Order
     
     public function ChangePreviewOrder($account_id_key,$order_id,$orderRequestArray)
     {
-        $this_url = str_replace("accountkeyid",$account_id_key,ORDER_CHANGE_PREVIEW_URL);
+        $this_url = str_replace("accountkeyid",$account_id_key,$this->config->order_change_preview_url);
         $this_url = str_replace("orderid",$order_id,$this_url);
         if(!isset($orderRequestArray) || $orderRequestArray == "")
         {
@@ -56,7 +62,7 @@ class Order
     
     public function PlaceChangeOrder($account_id_key,$order_id,$orderRequestArray)
     {
-        $this_url = str_replace("accountkeyid",$account_id_key,ORDER_CHANGE_PLACE_URL);
+        $this_url = str_replace("accountkeyid",$account_id_key,$this->config->order_change_place_url);
         $this_url = str_replace("orderid",$order_id,$this_url);
         if(!isset($orderRequestArray) || $orderRequestArray == "")
         {
@@ -68,7 +74,7 @@ class Order
     
     public function CancelOrder($account_id_key,$orderRequestArray)
     {
-        $this_url = str_replace("accountkeyid",$account_id_key,ORDER_CANCEL_URL);
+        $this_url = str_replace("accountkeyid",$account_id_key,$this->config->order_cancel_url);
         if(!isset($orderRequestArray) || $orderRequestArray == "")
         {
             print "Must submit orderId to Cancel Order!\n";
@@ -76,8 +82,6 @@ class Order
         }
         return $this->getResponse($this_url,"PUT",$orderRequestArray);
     }
-
-    
 
     public function buildFullURL($url,$queryParamsArray)
     {
@@ -96,5 +100,3 @@ class Order
     
     
 }
-
-?>

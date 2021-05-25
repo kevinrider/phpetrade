@@ -1,5 +1,5 @@
 <?php
-//WARNING: THIS EXAMPLE SENDS LIVES ORDERS TO YOUR E*TRADE ACCOUNT THROUGH THE API!
+//WARNING: THIS EXAMPLE SENDS LIVE ORDERS TO YOUR E*TRADE ACCOUNT THROUGH THE API!
 //WARNING: DO NOT EXECUTE THIS EXAMPLE AGAINST A PRODUCTION ACCOUNT DURING MARKET HOURS!
 exit;
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -40,7 +40,7 @@ $order_ticket->Parse("PREVIEWID", "");
 //echo $order_ticket->ticket_clone;
 //exit;
 
-$url = str_replace("accountkeyid",$account_id_key,ORDER_PREVIEW_URL);
+$url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_preview_url);
 $OAuthHTTPObj = new OAuthHTTP($url,"POST");
 $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
 
@@ -60,7 +60,7 @@ if($preview_id != "")
     $order_ticket->Parse("PREVIEWID", "\n<PreviewIds>\n<previewId>$preview_id</previewId>\n</PreviewIds>");
 //    echo $order_ticket->ticket_data;
 //    exit;
-    $url = str_replace("accountkeyid",$account_id_key,ORDER_PLACE_URL);
+    $url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_place_url);
     $OAuthHTTPObj->url = $url;
     $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
     $ord_place = $OAuthHTTPObj->GetResponse();
@@ -105,7 +105,7 @@ $order_ticket->Parse("PREVIEWID", "");
 echo $order_ticket->ticket_data;
 echo $order_ticket->ticket_clone;
 
-$url = str_replace("accountkeyid",$account_id_key,ORDER_PREVIEW_URL);
+$url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_preview_url);
 $OAuthHTTPObj = new OAuthHTTP($url,"POST");
 $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
 
@@ -124,7 +124,7 @@ if($preview_id != "")
     $order_ticket->Parse("PREVIEWID", "\n<PreviewIds>\n<previewId>$preview_id</previewId>\n</PreviewIds>");
 //    echo $order_ticket->ticket_data;
 //    exit;
-    $url = str_replace("accountkeyid",$account_id_key,ORDER_PLACE_URL);
+    $url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_place_url);
     $OAuthHTTPObj->url = $url;
     $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
     $ord_place = $OAuthHTTPObj->GetResponse();
@@ -179,7 +179,7 @@ $order_ticket->Parse("PREVIEWID", "");
 echo $order_ticket->ticket_data;
 echo $order_ticket->ticket_clone;
 
-$url = str_replace("accountkeyid",$account_id_key,ORDER_PREVIEW_URL);
+$url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_preview_url);
 $OAuthHTTPObj = new OAuthHTTP($url,"POST");
 $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
 
@@ -198,7 +198,7 @@ if($preview_id != "")
     $order_ticket->Parse("PREVIEWID", "\n<PreviewIds>\n<previewId>$preview_id</previewId>\n</PreviewIds>");
 //    echo $order_ticket->ticket_data;
 //    exit;
-    $url = str_replace("accountkeyid",$account_id_key,ORDER_PLACE_URL);
+    $url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_place_url);
     $OAuthHTTPObj->url = $url;
     $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
     $ord_place = $OAuthHTTPObj->GetResponse();
@@ -261,7 +261,7 @@ $order_ticket->Parse("PREVIEWID", "");
 echo $order_ticket->ticket_data;
 echo $order_ticket->ticket_clone;
 
-$url = str_replace("accountkeyid",$account_id_key,ORDER_PREVIEW_URL);
+$url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_preview_url);
 $OAuthHTTPObj = new OAuthHTTP($url,"POST");
 $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
 
@@ -280,7 +280,7 @@ if($preview_id != "")
     $order_ticket->Parse("PREVIEWID", "\n<PreviewIds>\n<previewId>$preview_id</previewId>\n</PreviewIds>");
 //    echo $order_ticket->ticket_data;
 //    exit;
-    $url = str_replace("accountkeyid",$account_id_key,ORDER_PLACE_URL);
+    $url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_place_url);
     $OAuthHTTPObj->url = $url;
     $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
     $ord_place = $OAuthHTTPObj->GetResponse();
@@ -344,7 +344,7 @@ $order_ticket->Parse("PREVIEWID", "");
 echo $order_ticket->ticket_data;
 echo $order_ticket->ticket_clone;
 
-$url = str_replace("accountkeyid",$account_id_key,ORDER_PREVIEW_URL);
+$url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_preview_url);
 $OAuthHTTPObj = new OAuthHTTP($url,"POST");
 $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
 
@@ -363,7 +363,7 @@ if($preview_id != "")
     $order_ticket->Parse("PREVIEWID", "\n<PreviewIds>\n<previewId>$preview_id</previewId>\n</PreviewIds>");
 //    echo $order_ticket->ticket_data;
 //    exit;
-    $url = str_replace("accountkeyid",$account_id_key,ORDER_PLACE_URL);
+    $url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_place_url);
     $OAuthHTTPObj->url = $url;
     $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
     $ord_place = $OAuthHTTPObj->GetResponse();
@@ -403,7 +403,7 @@ $order_ticket->Parse("PREVIEWID", "");
 //echo $order_ticket->ticket_clone;
 //exit;
 
-$url = str_replace("accountkeyid",$account_id_key,ORDER_PREVIEW_URL);
+$url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_preview_url);
 $OAuthHTTPObj = new OAuthHTTP($url,"POST");
 $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
 
@@ -421,7 +421,7 @@ if($preview_id != "")
     $order_ticket->Parse("PREVIEWID", "\n<PreviewIds>\n<previewId>$preview_id</previewId>\n</PreviewIds>");
 //    echo $order_ticket->ticket_data;
 //    exit;
-    $url = str_replace("accountkeyid",$account_id_key,ORDER_PLACE_URL);
+    $url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_place_url);
     $OAuthHTTPObj->url = $url;
     $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
     $ord_place = $OAuthHTTPObj->GetResponse();

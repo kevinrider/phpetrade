@@ -1,13 +1,15 @@
 <?php
+namespace phpetrade;
 require_once __DIR__ . '/vendor/autoload.php';
 
+$config = new Config();
 //Setup the OAuth 1.0a exchange.
 //Must have pecl oauth installed and enabled in php.ini.
 try 
 {
-    $oauth = new OAuth(APP_KEY,APP_SECRET);
+    $oauth = new \OAuth($config->app_key,$config->app_secret);
     //The "oob" call back is required by ETrade API when authenticating.
-    $request_token_info = $oauth->getRequestToken(REQUEST_TOKEN_URL,"oob");
+    $request_token_info = $oauth->getRequestToken($config->request_token_url,"oob");
     if(empty($request_token_info)) 
     {
         print "Failed fetching request token, response was: " . $oauth->getLastResponse();
@@ -18,7 +20,7 @@ catch(OAuthException $E)
     echo "Response: ". $E->lastResponse . "\n";
 }
 
-$auth_url =  AUTHORIZE_URL . "?key=" . APP_KEY . "&token=" . urlencode($request_token_info['oauth_token']);
+$auth_url =  $config->authorize_url . "?key=" . $config->app_key . "&token=" . urlencode($request_token_info['oauth_token']);
 
 echo "Your token authorize URL is : \n";
 echo "\n---------------------------------------------------------------\n";
@@ -35,7 +37,7 @@ fclose($h);
 $oauth->setToken($request_token_info['oauth_token'],$request_token_info['oauth_token_secret']);
 try
 {
-    $access_token_info = $oauth->getAccessToken(ACCESS_TOKEN_URL,'',$v,'GET');
+    $access_token_info = $oauth->getAccessToken($config->access_token_url,'',$v,'GET');
 }
 catch (OAuthException $E) 
 {
@@ -43,9 +45,9 @@ catch (OAuthException $E)
 }
 
 
-if(isset($access_token_info['oauth_token']) and isset($access_token_info['oauth_token_secret']))
+if(isset($access_token_info['oauth_token']) && isset($access_token_info['oauth_token_secret']))
 {
-    echo "Final access tokens have been written to tokens.php";
+    echo "Final access tokens have been written to tokens.inc";
     echo "\n---------------------------------------------------------------\n";
     echo "\nToken   : ". $access_token_info['oauth_token'];
     echo "\nSecret  : ". $access_token_info['oauth_token_secret'];
@@ -57,27 +59,8 @@ else
     exit;
 }
 
-//Write the new config.php file with the access token's swapped in.
-
-$file_name = dirname(__FILE__) . "/src/tokens.tpl";
-$out_name = dirname(__FILE__) . "/src/tokens.php";
-
-$fd = fopen($file_name,"r");
-$file_data = fread($fd, filesize($file_name));
-fclose($fd);
-
-$file_data = Parse("ACCESS_TOKEN",$access_token_info['oauth_token'],$file_data);
-$file_data = Parse("TOKEN_SECRET",$access_token_info['oauth_token_secret'],$file_data);
-
-$fp = fopen("$out_name", 'w');
-fwrite($fp, $file_data);
-fclose($fp);
-
-function Parse($key, $value, $file_data)
-{
-        $key = '/{' . "$key" . '}/';
-        $file_data = preg_replace("$key","$value",$file_data);
-        return $file_data;
-}
-
-?>
+//Store tokens
+$token_array[0] = $access_token_info['oauth_token'];
+$token_array[1] = $access_token_info['oauth_token_secret'];
+$s = serialize($token_array);
+file_put_contents($config->token_file, $s);

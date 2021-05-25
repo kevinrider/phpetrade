@@ -6,18 +6,21 @@ namespace phpetrade;
 
 class OAuthHTTP
 {
+    public $config;
+
     function __construct($url,$method = "GET")
     {
         $this->url = $url;
         $this->method = $method;
         $this->post_request = "";
         $this->content_type = "xml";
+        $this->config = new Config(true);
     }
 
     public function GetResponse()
     {
-        $oauth = new \OAuth(APP_KEY,APP_SECRET,OAUTH_SIG_METHOD_HMACSHA1,OAUTH_AUTH_TYPE_AUTHORIZATION);
-        $oauth->setToken(OAUTH_ACCESS_TOKEN,OAUTH_ACCESS_TOKEN_SECRET);
+        $oauth = new \OAuth($this->config->app_key,$this->config->app_secret,OAUTH_SIG_METHOD_HMACSHA1,OAUTH_AUTH_TYPE_AUTHORIZATION);
+        $oauth->setToken($this->config->oauth_access_token,$this->config->oauth_access_token_secret);
         $oauth->enableDebug();
         try 
         {
@@ -66,11 +69,10 @@ class OAuthHTTP
         {
             echo "Exception caught!\n";
             echo "Response: ". $E->lastResponse . "\n";
-            if(DEBUG_MODE)
+            if($this->config->debug_mode)
             {
                 print_r($E);
             }
         }
     }
 }
-?>

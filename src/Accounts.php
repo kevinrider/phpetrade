@@ -7,16 +7,22 @@ namespace phpetrade;
 class Accounts
 {
     use EndPointTrait;
+    public $config;
+
+    function __construct()
+    {
+        $this->config = new Config(true);
+    }
     
     public function GetAccountList()
     {
         //No input parameters
-        return $this->getResponse(URL_ACCOUNTLIST);
+        return $this->getResponse($this->config->url_accountlist);
     }
 
     public function GetAccountBalance($account_id_key,$queryStringArray)
     {
-        $this_url = str_replace("accountkeyid",$account_id_key,URL_ACCOUNTBALANCE);
+        $this_url = str_replace("accountkeyid",$account_id_key,$this->config->url_accountbalance);
         if(isset($queryStringArray) && $queryStringArray != "")
         {
             $this_url = $this->buildFullURL($this_url,$queryStringArray);
@@ -26,7 +32,7 @@ class Accounts
 
     public function GetAccountTransactions($account_id_key,$queryStringArray)
     {
-        $this_url = str_replace("accountkeyid",$account_id_key,URL_ACCOUNTTRANSACTIONS);
+        $this_url = str_replace("accountkeyid",$account_id_key,$this->config->url_accounttransactions);
         if(isset($queryStringArray) && $queryStringArray != "")
         {
             $this_url = $this->buildFullURL($this_url,$queryStringArray);
@@ -36,7 +42,7 @@ class Accounts
 
     public function GetAccountTransactionDetails($account_id_key,$tran_id,$queryStringArray)
     {
-        $this_url = str_replace("accountkeyid",$account_id_key,URL_ACCOUNTTRANSACTIONSDETAILS);
+        $this_url = str_replace("accountkeyid",$account_id_key,$this->config->url_accounttransactionsdetails);
         $this_url = str_replace("transid",$tran_id,$this_url);
         if(isset($queryStringArray) && $queryStringArray != "")
         {
@@ -47,7 +53,7 @@ class Accounts
 
     public function GetAccountPortfolio($account_id_key,$queryStringArray)
     {
-        $this_url = str_replace("accountkeyid",$account_id_key,URL_ACCOUNTPORTFOLIO);
+        $this_url = str_replace("accountkeyid",$account_id_key,$this->config->url_accountportfolio);
         if(isset($queryStringArray) && $queryStringArray != "")
         {
             $this_url = $this->buildFullURL($this_url,$queryStringArray);

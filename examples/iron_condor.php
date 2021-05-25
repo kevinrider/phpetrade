@@ -12,7 +12,7 @@ $ac = $ac_obj->GetAccountList();
 $account_id_key = (string) $ac->Accounts->Account->accountIdKey;
 
 $client_order_id = 'test' . rand_order_id(); //Some unique random order id
-$url = str_replace("accountkeyid",$account_id_key,ORDER_PREVIEW_URL);
+$url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_preview_url);
 $OAuthHTTPObj = new OAuthHTTP($url,"POST");
 $OAuthHTTPObj->post_request = preview_request($client_order_id);
 
@@ -22,7 +22,7 @@ print_r($ord_preview);
 //exit;
 $preview_id = $ord_preview->PreviewIds->previewId;
 
-$url = str_replace("accountkeyid",$account_id_key,ORDER_PLACE_URL);
+$url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_place_url);
 print "$url\n";
 $OAuthHTTPObj = new OAuthHTTP($url,"POST");
 $OAuthHTTPObj->post_request = place_request($client_order_id,$preview_id);

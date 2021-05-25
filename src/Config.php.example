@@ -9,6 +9,9 @@ class Config
     public $etrade_oauth_server = 'https://api.etrade.com';
     public $authorize_url = 'https://us.etrade.com/e/t/etws/authorize';
     public $debug_mode = 0; //1: Dumps OAUTH/HTTP communication log on error.  0: No extended error reporting 
+    public $token_file;
+    public $oauth_access_token;
+    public $oauth_access_token_secret;
 
     public $app_key;
     public $app_secret;
@@ -52,13 +55,13 @@ class Config
         switch($str)
         {
             case 'prod' :
-                //Fill in APP_KEY and APP_SECRET with the issued production keys.
+                //Fill in app_key and app_secret with the issued production keys.
                 $this->app_key = '';
                 $this->app_secret = '';
                 $this->etrade_server = 'https://api.etrade.com';
                 break;
             case 'sandbox' : 	
-                //Fill in the APP_KEY and APP_SECRET with the issued sandbox keys.
+                //Fill in the app_key and app_secret with the issued sandbox keys.
                 $this->app_key = '';
                 $this->app_secret = '';
                 $this->etrade_server = 'https://apisb.etrade.com';
@@ -66,6 +69,16 @@ class Config
             default : 
                 echo "Please set this as a Production or Sandbox environment in Config.php file and try again.\n";
                 exit;
+        }
+
+        //Load Tokens
+        $this->token_file = dirname(__FILE__) . "/tokens.inc";
+        if($load_tokens)
+        {
+            $s = file_get_contents($this->token_file);
+            $token_array = unserialize($s);
+            $this->oauth_access_token = $token_array[0];
+            $this->oauth_access_token_secret = $token_array[1];
         }
 
         //Authorization Endpoints

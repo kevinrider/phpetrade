@@ -65,7 +65,7 @@ Currently there are no requirements other than PHP 7.2 or greater.  However usin
 ```composer install``` in order to generate the autoload.php file for the included auth.php and example scripts.
 
 ## Authentication
-Copy phpetrade/src/config.php.example to phpetrade/src/config.php and fill in your APP_KEY and APP_SECRET.  If you have sandbox keys only, then only
+Copy phpetrade/src/Config.php.example to phpetrade/src/Config.php and fill in your app_key and app_secret.  If you have sandbox keys only, then only
 copy those into the sandbox keys in the code and vice versa for production keys.  Set the sandbox/production environment on line 11, the default is sandbox.
 
 Logging into the E*Trade API is a two step process because the API uses the OAuth 1.0a specification.
