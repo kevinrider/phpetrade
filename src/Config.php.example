@@ -1,0 +1,103 @@
+<?php
+/**
+ * ETrade API v1 Config.php
+ */
+namespace phpetrade;
+
+class Config
+{
+    public $etrade_oauth_server = 'https://api.etrade.com';
+    public $authorize_url = 'https://us.etrade.com/e/t/etws/authorize';
+    public $debug_mode = 0; //1: Dumps OAUTH/HTTP communication log on error.  0: No extended error reporting 
+
+    public $app_key;
+    public $app_secret;
+    public $etrade_server;
+
+    //Authorization Endpoints
+    public $request_token_url;
+    public $access_token_url;
+    public $renew_token_url;
+    public $revoke_token_url;
+
+    //Account Endpoints
+    public $url_accountlist;
+    public $url_accountbalance;
+    public $url_accounttransactions;
+    public $url_accounttransactionsdetails;
+    public $url_accountportfolio;
+
+    //Market Endpoints
+    public $url_getquote;
+    public $url_marketlookup;
+    public $url_optionchains;
+    public $url_expirydates;
+
+    //Alerts Endpoints
+    public $list_alerts_url;
+    public $alert_details_url;
+    public $delete_alert_url;
+
+    //Order Endpoints
+    public $order_list_url;
+    public $order_preview_url;
+    public $order_place_url;
+    public $order_cancel_url;
+    public $order_change_preview_url;
+    public $order_change_place_url;
+
+    function __construct($load_tokens = false)
+    {
+        $str = "sandbox";
+        switch($str)
+        {
+            case 'prod' :
+                //Fill in APP_KEY and APP_SECRET with the issued production keys.
+                $this->app_key = '';
+                $this->app_secret = '';
+                $this->etrade_server = 'https://api.etrade.com';
+                break;
+            case 'sandbox' : 	
+                //Fill in the APP_KEY and APP_SECRET with the issued sandbox keys.
+                $this->app_key = '';
+                $this->app_secret = '';
+                $this->etrade_server = 'https://apisb.etrade.com';
+                break;
+            default : 
+                echo "Please set this as a Production or Sandbox environment in Config.php file and try again.\n";
+                exit;
+        }
+
+        //Authorization Endpoints
+        $this->request_token_url = $this->etrade_oauth_server . '/oauth/request_token';
+        $this->access_token_url = $this->etrade_oauth_server . '/oauth/access_token';
+        $this->renew_token_url = $this->etrade_oauth_server . '/oauth/renew_access_token';
+        $this->revoke_token_url = $this->etrade_oauth_server . '/oauth/revoke_access_token';
+
+        //Account Endpoints
+        $this->url_accountlist = $this->etrade_server . '/v1/accounts/list';
+        $this->url_accountbalance = $this->etrade_server . '/v1/accounts/accountkeyid/balance';
+        $this->url_accounttransactions = $this->etrade_server . '/v1/accounts/accountkeyid/transactions';
+        $this->url_accounttransactionsdetails = $this->etrade_server . '/v1/accounts/accountkeyid/transactions/transid';
+        $this->url_accountportfolio = $this->etrade_server . '/v1/accounts/accountkeyid/portfolio';
+
+        //Market Endpoints
+        $this->url_getquote = $this->etrade_server . '/v1/market/quote';
+        $this->url_marketlookup = $this->etrade_server . '/v1/market/lookup';
+        $this->url_optionchains = $this->etrade_server . '/v1/market/optionchains';
+        $this->url_expirydates = $this->etrade_server . '/v1/market/optionexpiredate';
+
+        //Alerts Endpoints
+        $this->list_alerts_url = $this->etrade_server . '/v1/user/alerts';
+        $this->alert_details_url = $this->etrade_server . '/v1/user/alerts';
+        $this->delete_alert_url = $this->etrade_server . '/v1/user/alerts';
+
+        //Order Endpoints
+        $this->order_list_url = $this->etrade_server . '/v1/accounts/accountkeyid/orders';
+        $this->order_preview_url = $this->etrade_server . '/v1/accounts/accountkeyid/orders/preview';
+        $this->order_place_url = $this->etrade_server . '/v1/accounts/accountkeyid/orders/place';
+        $this->order_cancel_url = $this->etrade_server . '/v1/accounts/accountkeyid/orders/cancel';
+        $this->order_change_preview_url = $this->etrade_server . '/v1/accounts/accountkeyid/orders/orderid/change/preview';
+        $this->order_change_place_url = $this->etrade_server . '/v1/accounts/accountkeyid/orders/orderid/change/place';
+    }
+}
