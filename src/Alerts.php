@@ -56,11 +56,8 @@ class Alerts
     public function buildFullURL($url,$queryParamsArray)
     {
         $query_string = "";
-        print_r($queryParamsArray);
         foreach($queryParamsArray as $k=>$v)
         {
-            //print "$k - $v\n";
-            //print_r($v);
             if(is_array($v) && $k == "id")
             {
                 $id_string = "/" . implode(',', array_filter($v));
@@ -73,11 +70,8 @@ class Alerts
             {
                 $query_string .= $k.'='. urlencode($v) .'&';
             }
-            else
-            {
-            }
         }
-        //exit;
+
         $query_string = rtrim($query_string,"&");
         if(isset($id_string))
         {
@@ -98,7 +92,7 @@ class Alerts
         {
             $full_url = $url;
         }
-        //$full_url = $url . $symbol_string;
+
         return $full_url;
     }
 }

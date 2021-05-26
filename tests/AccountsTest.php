@@ -88,7 +88,7 @@ final class AccountsTest extends TestCase
     /**
     * @dataProvider UrlProvider
     */
-    public function testbuildFullUrl($a, $b, $expected)
+    public function testbuildFullUrl($a, $b, $expected): void
     {
         $this->assertSame($expected, $this->ac_obj->buildFullUrl($a,$b));
     }

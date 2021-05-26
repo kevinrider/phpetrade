@@ -2,6 +2,7 @@
   <testsuites>
     <testsuite name="phpetrade">
       <file>tests/AccountsTest.php</file>
+      <file>tests/AlertsTest.php</file>
       <!-- <file>tests/AuthorizationTest.php</file> -->
     </testsuite>
   </testsuites>

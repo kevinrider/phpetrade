@@ -117,7 +117,7 @@ $alert_id = (int) $al_list->Alert->$iii->id;
 $alerts_delete_para["id"][] = "$alert_id";
 $al_details = $al_obj->AlertsDelete($alerts_delete_para);
 print_r($al_details);
- */
+*/
 
 //Order End point
 $ord_obj = new Order();
