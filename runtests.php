@@ -1,19 +1,25 @@
 <?php
 
-//First setup E*Trade Tokens if not already setup
+//First setup E*Trade Tokens if not already setup.
 $token_file = dirname(__FILE__) . "/src/tokens.inc";
-$run_auth = true;
+$run_auth = false;
 if(file_exists($token_file))
 {
     $last_access = fileatime($token_file);
+    $last_modified = filemtime($token_file);
     if($last_access != false)
     {
         $diff = time() - $last_access;
-        if($diff <= 7200)
+        $diffm = time() - $last_modified;
+        if($diff >= 7200 && $diffm >= 7200)
         {
-            $run_auth = false;
+            $run_auth = true;
         }
     }
+}
+else
+{
+    $run_auth = true;
 }
 
 if($run_auth)
@@ -22,9 +28,8 @@ if($run_auth)
     system($command);
 }
 
-//Now run PHPUnit Tests against live API.
 if(file_exists($token_file))
 {
-    $command = "php " . dirname(__FILE__) . "/vendor/bin/phpunit --testdox tests";
+    $command = "php " . dirname(__FILE__) . "/vendor/bin/phpunit --testdox --testsuite phpetrade";
     system($command);
 }
