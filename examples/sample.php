@@ -86,7 +86,7 @@ $mk_optionchain = $mk_obj->MarketGetOptionChain($market_optionchain_para);
 //print_r($mk_optionchain);
 
 //Market Get Option Chain Expiration Dates
-//Gets a list of future option expiration dates and wether they are Monthly or Weekly expirations.
+//Gets a list of future option expiration dates and whether they are Monthly or Weekly expirations.
 $market_optionchainexp_para["symbol"] = "MTN";
 $mk_optionchainexp = $mk_obj->MarketGetOptionExp($market_optionchainexp_para);
 //print_r($mk_optionchainexp);

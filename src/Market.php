@@ -105,9 +105,13 @@ class Market
         }
 
         $query_string = rtrim($query_string,"&");
-        if(isset($symbols_string))
+        if(isset($symbols_string) && $query_string != "")
         {
             $full_url = $url . $symbols_string . "?" . $query_string;
+        }
+        elseif(isset($symbols_string))
+        {
+            $full_url = $url . $symbols_string;
         }
         elseif(isset($search_string))
         {
