@@ -11,10 +11,10 @@ echo $response;
 
 //Revoke authenticated tokens
 //Expect: Revoked Access Token 
-$auth_obj->RevokeAccessToken();
+$response = $auth_obj->RevokeAccessToken();
 echo $response;
 
 //Revoke authenticated tokens
 //Expect: Invalid auth/bad request 401
-$auth_obj->RenewAccessToken();
+$response = $auth_obj->RenewAccessToken();
 echo $response;

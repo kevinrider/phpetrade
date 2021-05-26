@@ -2,4 +2,5 @@ composer.phar
 /vendor/
 /nbproject/private/
 /nbproject/
-config.php
+src/Config.php
+src/tokens.inc
