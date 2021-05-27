@@ -12,7 +12,8 @@
       <testsuite name="phpetrade">
         <file>tests/AccountsTest.php</file>
         <!-- <file>tests/AlertsTest.php</file> -->
-        <file>tests/MarketTest.php</file>
+        <!-- <file>tests/MarketTest.php</file> -->
+        <file>tests/OrderTest.php</file>
         <!-- <file>tests/AuthorizationTest.php</file> -->
       </testsuite>
     </testsuites>

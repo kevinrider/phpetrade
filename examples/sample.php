@@ -127,7 +127,7 @@ $order_list_para["count"] = "2";
 $order_list_para["marketSession"] = "REGULAR";
 $order_list_para["status"] = "OPEN";
 $ord_list = $ord_obj->ListOrders($account_id_key,$order_list_para);
-print_r($ord_list);
+//print_r($ord_list);
 
 //Preview Order
 //EQ
@@ -166,7 +166,7 @@ $order_place_para["PlaceOrderRequest"]["Order"]["allOrNone"] = "true";
 $order_place_para["PlaceOrderRequest"]["Order"]["priceType"] = "LIMIT";
 $order_place_para["PlaceOrderRequest"]["Order"]["orderTerm"] = "GOOD_FOR_DAY";
 $order_place_para["PlaceOrderRequest"]["Order"]["marketSession"] = "REGULAR";
-$order_place_para["PlaceOrderRequest"]["Order"]["limitPrice"] = "4.00";
+$order_place_para["PlaceOrderRequest"]["Order"]["limitPrice"] = "4.25";
 $order_place_para["PlaceOrderRequest"]["Order"]["Instrument"]["Product"]["securityType"] = "EQ";
 $order_place_para["PlaceOrderRequest"]["Order"]["Instrument"]["Product"]["symbol"] = "AMZN";
 $order_place_para["PlaceOrderRequest"]["Order"]["Instrument"]["orderAction"] = "BUY";
@@ -176,7 +176,6 @@ $order_place_para["PlaceOrderRequest"]["Order"]["Instrument"]["quantity"] = "1";
 //echo $ord_obj->encodeXML($order_place_para,'',0);
 $ord_place = $ord_obj->PlaceOrder($account_id_key,$order_place_para);
 print_r($ord_place);
-//exit;
 
 
 //Cancel Order
@@ -189,8 +188,7 @@ $order_cancel_para["CancelOrderRequest"]["orderId"] = "$cancel_order_id";
 $ord_cancel = $ord_obj->CancelOrder($account_id_key,$order_cancel_para);
 print_r($ord_cancel);
 exit;
- * 
- */
+*/
 
 //Change Preview Order
 //EQ
@@ -212,7 +210,6 @@ $order_change_preview_para["PreviewOrderRequest"]["Order"]["Instrument"]["quanti
 $ord_change_preview = $ord_obj->ChangePreviewOrder($account_id_key,$order_id,$order_change_preview_para);
 print_r($ord_change_preview);
 
-
 //Place Changed Preview Order
 //EQ
 $order_id = $ord_list->Order->$iiii->orderId;
@@ -230,7 +227,7 @@ $order_place_change_para["PlaceOrderRequest"]["Order"]["Instrument"]["Product"][
 $order_place_change_para["PlaceOrderRequest"]["Order"]["Instrument"]["orderAction"] = "BUY";
 $order_place_change_para["PlaceOrderRequest"]["Order"]["Instrument"]["quantityType"] = "QUANTITY";
 $order_place_change_para["PlaceOrderRequest"]["Order"]["Instrument"]["quantity"] = "1";
-echo $ord_obj->encodeXML($order_place_change_para,'',0);
+//echo $ord_obj->encodeXML($order_place_change_para,'',0);
 $ord_place_preview = $ord_obj->PlaceChangeOrder($account_id_key,$order_id,$order_place_change_para);
 print_r($ord_place_preview);
 
