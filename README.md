@@ -93,7 +93,7 @@ you should receive a 5 character Verifier code.  Copy the code into verifier cod
 
 If all goes well you should see the following output.  
 ```
-Here is your final authorized token and has been written to config.php
+Here is your final authorized token and has been written to tokens.inc
 ---------------------------------------------------------------
 
 Token   : SOMEACCESSKEY
@@ -124,6 +124,12 @@ and these orders may fill at some point.
 - spread.php : Double Leg Option Order example.
 - iron_condor.php : Quad Leg Option Order example.
 - orderticket.php : A more generalized way to create/issue option orders.
+
+## PHPUnit
+**Do not run the unit tests unless you are a developer and read this section carefully.**
+All unit tests reside in the tests directory and a phpunit.xml file is provided in the project root for PHPUnit 9.  Due to the complexity of mocking a large portion of the E*Trade API, the unit tests assume a production account and operate against the live API.  Any tests that do more than just read from the API (OrderTest.php, OrderTicketTest.php, AlertTest.php) have been disabled in the phpunit.xml file.  AlertTest.php will delete the most recent alert message, OrderTest.php tests the Preview Order -> Place Order -> Preview Change Order -> Place Change Order -> Cancel Order process with AMZN at a very low price and is very unlikely to fill ever.  OrderTicketTest.php tests the Preview Order -> Place Order -> Cancel Order process with a SPY Iron Condor (four option legs in one order) for 12/2021 expiration, this may fill at some future date (like the example scripts) and is important to verify it will not fill at the limit price before running OrderTicketTest.php during market hours.
+
+The runtests.php script authenticates phpetrade before running the unit tests.  Note that the last successful unit test revokes the oauth tokens and signs out of the API.
 
 ## Altering Requests
 For most end points adding an additional request parameter is just a matter of adding to the parameter array.  For example in sample.php the following code is used to query the Accounts - Transaction Details end point.

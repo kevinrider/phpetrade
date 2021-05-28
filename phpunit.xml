@@ -1,26 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/5.7/phpunit.xsd"
-         bootstrap="vendor/autoload.php"
-         backupGlobals="false"
-         beStrictAboutCoversAnnotation="true"
-         beStrictAboutOutputDuringTests="true"
-         beStrictAboutTestsThatDoNotTestAnything="true"
-         beStrictAboutTodoAnnotatedTests="true"
-         verbose="true">
-    <testsuites>
-      <testsuite name="phpetrade">
-        <file>tests/AccountsTest.php</file>
-        <!-- <file>tests/AlertsTest.php</file> -->
-        <!-- <file>tests/MarketTest.php</file> -->
-        <file>tests/OrderTest.php</file>
-        <!-- <file>tests/AuthorizationTest.php</file> -->
-      </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">src</directory>
-        </whitelist>
-    </filter>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" bootstrap="vendor/autoload.php" backupGlobals="false" beStrictAboutCoversAnnotation="true" beStrictAboutOutputDuringTests="true" beStrictAboutTestsThatDoNotTestAnything="true" beStrictAboutTodoAnnotatedTests="true" verbose="true">
+  <coverage processUncoveredFiles="true">
+    <include>
+      <directory suffix=".php">src</directory>
+    </include>
+  </coverage>
+  <testsuites>
+    <testsuite name="phpetrade">
+      <file>tests/AccountsTest.php</file>
+      <file>tests/MarketTest.php</file>
+      <!-- <file>tests/OrderTest.php</file>
+      <file>tests/OrderTicketTest.php</file>
+      <file>tests/AlertsTest.php</file> -->
+      <file>tests/AuthorizationTest.php</file>
+    </testsuite>
+  </testsuites>
 </phpunit>
-

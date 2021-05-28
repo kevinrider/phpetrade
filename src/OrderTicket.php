@@ -6,12 +6,16 @@ namespace phpetrade;
 
 class OrderTicket
 {
+    use EndPointTrait;
+    public $config;
+
     public function __construct($root_dir)
     {
         $this->root_dir = $root_dir;
         $this->file_name = "";
         $this->ticket_data = "";
         $this->ticket_clone = "";
+        $this->config = new Config(true);
     }
    
     //Load File and Set Root

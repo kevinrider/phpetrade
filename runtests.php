@@ -30,6 +30,6 @@ if($run_auth)
 
 if(file_exists($token_file))
 {
-    $command = "php " . dirname(__FILE__) . "/vendor/bin/phpunit --coverage-text --debug --testdox --testsuite phpetrade";
+    $command = "php " . dirname(__FILE__) . "/vendor/bin/phpunit --coverage-text --testdox --testsuite phpetrade";
     system($command);
 }
