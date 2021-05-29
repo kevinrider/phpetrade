@@ -7,23 +7,23 @@ namespace phpetrade;
 class Authorization
 {
     use EndPointTrait;
-    public $config;
+    protected $config;
 
-    function __construct()
+    function __construct(Config $config)
     {
-        $this->config = new Config(true);
+        $this->config = $config;
     }
 
     public function RenewAccessToken()
     {
         //No input parameters
-        return $this->getResponse($this->config->renew_token_url);
+        return $this->getResponse($this->config,$this->config->renew_token_url);
     }
 
     public function RevokeAccessToken()
     {
         //No input parameters
-        return $this->getResponse($this->config->revoke_token_url);
+        return $this->getResponse($this->config,$this->config->revoke_token_url);
     }
 
 }

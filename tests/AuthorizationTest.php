@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 use phpetrade\Authorization;
+use phpetrade\Config;
 
 final class AuthorizationTest extends TestCase
 {
@@ -8,7 +9,8 @@ final class AuthorizationTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->auth_obj = new Authorization();
+        $config = new Config(true);
+        $this->auth_obj = new Authorization($config);
     }
 
     public function testRenewAccessToken(): void

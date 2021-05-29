@@ -6,15 +6,15 @@ namespace phpetrade;
 
 class OAuthHTTP
 {
-    public $config;
+    protected $config;
 
-    function __construct($url,$method = "GET")
+    function __construct(Config $config,$url,$method = "GET")
     {
         $this->url = $url;
         $this->method = $method;
         $this->post_request = "";
         $this->content_type = "xml";
-        $this->config = new Config(true);
+        $this->config = $config;
     }
 
     public function GetResponse()

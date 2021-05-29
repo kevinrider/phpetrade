@@ -6,15 +6,17 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use phpetrade\Accounts;
 use phpetrade\OAuthHTTP;
 use phpetrade\OrderTicket;
+use phpetrade\Config;
 
-$ac_obj = new Accounts();
+$config = new Config(true);
+$ac_obj = new Accounts($config);
 
 $ac = $ac_obj->GetAccountList();
 $account_id_key = (string) $ac->Accounts->Account->accountIdKey;
 
 
 //Build Up Single Leg Option Order Ticket
-$order_ticket = new OrderTicket(dirname(__FILE__) . "/../src/tickets");
+$order_ticket = new OrderTicket(dirname(__FILE__) . "/../src/tickets",$config);
 $order_ticket->LoadOptionOrderTicket("single");
 
 $client_order_id = 'test' . rand_order_id();  //Some unique random order id
@@ -40,8 +42,8 @@ $order_ticket->Parse("PREVIEWID", "");
 //echo $order_ticket->ticket_clone;
 //exit;
 
-$url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_preview_url);
-$OAuthHTTPObj = new OAuthHTTP($url,"POST");
+$url = str_replace("accountkeyid",$account_id_key,$config->order_preview_url);
+$OAuthHTTPObj = new OAuthHTTP($config,$url,"POST");
 $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
 
 $ord_preview = $OAuthHTTPObj->GetResponse();
@@ -60,7 +62,7 @@ if($preview_id != "")
     $order_ticket->Parse("PREVIEWID", "\n<PreviewIds>\n<previewId>$preview_id</previewId>\n</PreviewIds>");
 //    echo $order_ticket->ticket_data;
 //    exit;
-    $url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_place_url);
+    $url = str_replace("accountkeyid",$account_id_key,$config->order_place_url);
     $OAuthHTTPObj->url = $url;
     $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
     $ord_place = $OAuthHTTPObj->GetResponse();
@@ -69,7 +71,7 @@ if($preview_id != "")
 
 
 //Build Up Two Leg Option Order Ticket
-$order_ticket = new OrderTicket(dirname(__FILE__) . "/../src/tickets");
+$order_ticket = new OrderTicket(dirname(__FILE__) . "/../src/tickets",$config);
 $order_ticket->LoadOptionOrderTicket("double");
 
 $client_order_id = 'test' . rand_order_id();  //Some unique random order id
@@ -105,8 +107,8 @@ $order_ticket->Parse("PREVIEWID", "");
 echo $order_ticket->ticket_data;
 echo $order_ticket->ticket_clone;
 
-$url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_preview_url);
-$OAuthHTTPObj = new OAuthHTTP($url,"POST");
+$url = str_replace("accountkeyid",$account_id_key,$config->order_preview_url);
+$OAuthHTTPObj = new OAuthHTTP($config,$url,"POST");
 $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
 
 $ord_preview = $OAuthHTTPObj->GetResponse();
@@ -124,7 +126,7 @@ if($preview_id != "")
     $order_ticket->Parse("PREVIEWID", "\n<PreviewIds>\n<previewId>$preview_id</previewId>\n</PreviewIds>");
 //    echo $order_ticket->ticket_data;
 //    exit;
-    $url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_place_url);
+    $url = str_replace("accountkeyid",$account_id_key,$config->order_place_url);
     $OAuthHTTPObj->url = $url;
     $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
     $ord_place = $OAuthHTTPObj->GetResponse();
@@ -132,7 +134,7 @@ if($preview_id != "")
 }
 
 //Build Up Three Leg Option Order Ticket
-$order_ticket = new OrderTicket(dirname(__FILE__) . "/../src/tickets");
+$order_ticket = new OrderTicket(dirname(__FILE__) . "/../src/tickets",$config);
 $order_ticket->LoadOptionOrderTicket("triple");
 
 $client_order_id = 'test' . rand_order_id();  //Some unique random order id
@@ -179,8 +181,8 @@ $order_ticket->Parse("PREVIEWID", "");
 echo $order_ticket->ticket_data;
 echo $order_ticket->ticket_clone;
 
-$url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_preview_url);
-$OAuthHTTPObj = new OAuthHTTP($url,"POST");
+$url = str_replace("accountkeyid",$account_id_key,$config->order_preview_url);
+$OAuthHTTPObj = new OAuthHTTP($config,$url,"POST");
 $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
 
 $ord_preview = $OAuthHTTPObj->GetResponse();
@@ -198,7 +200,7 @@ if($preview_id != "")
     $order_ticket->Parse("PREVIEWID", "\n<PreviewIds>\n<previewId>$preview_id</previewId>\n</PreviewIds>");
 //    echo $order_ticket->ticket_data;
 //    exit;
-    $url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_place_url);
+    $url = str_replace("accountkeyid",$account_id_key,$config->order_place_url);
     $OAuthHTTPObj->url = $url;
     $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
     $ord_place = $OAuthHTTPObj->GetResponse();
@@ -206,7 +208,7 @@ if($preview_id != "")
 }
 
 //Build Up Four Leg Option Order Ticket
-$order_ticket = new OrderTicket(dirname(__FILE__) . "/../src/tickets");
+$order_ticket = new OrderTicket(dirname(__FILE__) . "/../src/tickets",$config);
 $order_ticket->LoadOptionOrderTicket("quad");
 
 $client_order_id = 'test' . rand_order_id();  //Some unique random order id
@@ -261,8 +263,8 @@ $order_ticket->Parse("PREVIEWID", "");
 echo $order_ticket->ticket_data;
 echo $order_ticket->ticket_clone;
 
-$url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_preview_url);
-$OAuthHTTPObj = new OAuthHTTP($url,"POST");
+$url = str_replace("accountkeyid",$account_id_key,$config->order_preview_url);
+$OAuthHTTPObj = new OAuthHTTP($config,$url,"POST");
 $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
 
 $ord_preview = $OAuthHTTPObj->GetResponse();
@@ -280,7 +282,7 @@ if($preview_id != "")
     $order_ticket->Parse("PREVIEWID", "\n<PreviewIds>\n<previewId>$preview_id</previewId>\n</PreviewIds>");
 //    echo $order_ticket->ticket_data;
 //    exit;
-    $url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_place_url);
+    $url = str_replace("accountkeyid",$account_id_key,$config->order_place_url);
     $OAuthHTTPObj->url = $url;
     $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
     $ord_place = $OAuthHTTPObj->GetResponse();
@@ -288,7 +290,7 @@ if($preview_id != "")
 }
 
 //Build Up Another Four Leg Option Order Ticket
-$order_ticket = new OrderTicket(dirname(__FILE__) . "/../src/tickets");
+$order_ticket = new OrderTicket(dirname(__FILE__) . "/../src/tickets",$config);
 $order_ticket->LoadOptionOrderTicket("quad");
 
 $client_order_id = 'test' . rand_order_id();  //Some unique random order id
@@ -344,8 +346,8 @@ $order_ticket->Parse("PREVIEWID", "");
 echo $order_ticket->ticket_data;
 echo $order_ticket->ticket_clone;
 
-$url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_preview_url);
-$OAuthHTTPObj = new OAuthHTTP($url,"POST");
+$url = str_replace("accountkeyid",$account_id_key,$config->order_preview_url);
+$OAuthHTTPObj = new OAuthHTTP($config,$url,"POST");
 $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
 
 $ord_preview = $OAuthHTTPObj->GetResponse();
@@ -363,7 +365,7 @@ if($preview_id != "")
     $order_ticket->Parse("PREVIEWID", "\n<PreviewIds>\n<previewId>$preview_id</previewId>\n</PreviewIds>");
 //    echo $order_ticket->ticket_data;
 //    exit;
-    $url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_place_url);
+    $url = str_replace("accountkeyid",$account_id_key,$config->order_place_url);
     $OAuthHTTPObj->url = $url;
     $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
     $ord_place = $OAuthHTTPObj->GetResponse();
@@ -371,7 +373,7 @@ if($preview_id != "")
 }
 
 //Build Up Buy Write (Stock + Single Leg Option) Order Ticket
-$order_ticket = new OrderTicket(dirname(__FILE__) . "/../src/tickets");
+$order_ticket = new OrderTicket(dirname(__FILE__) . "/../src/tickets",$config);
 $order_ticket->LoadOptionOrderTicket("buywrite");
 
 $client_order_id = 'test' . rand_order_id();  //Some unique random order id
@@ -403,8 +405,8 @@ $order_ticket->Parse("PREVIEWID", "");
 //echo $order_ticket->ticket_clone;
 //exit;
 
-$url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_preview_url);
-$OAuthHTTPObj = new OAuthHTTP($url,"POST");
+$url = str_replace("accountkeyid",$account_id_key,$config->order_preview_url);
+$OAuthHTTPObj = new OAuthHTTP($config,$url,"POST");
 $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
 
 $ord_preview = $OAuthHTTPObj->GetResponse();
@@ -421,7 +423,7 @@ if($preview_id != "")
     $order_ticket->Parse("PREVIEWID", "\n<PreviewIds>\n<previewId>$preview_id</previewId>\n</PreviewIds>");
 //    echo $order_ticket->ticket_data;
 //    exit;
-    $url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_place_url);
+    $url = str_replace("accountkeyid",$account_id_key,$config->order_place_url);
     $OAuthHTTPObj->url = $url;
     $OAuthHTTPObj->post_request = $order_ticket->ticket_data;
     $ord_place = $OAuthHTTPObj->GetResponse();

@@ -1,21 +1,21 @@
 <?php
 namespace phpetrade;
 
-//Class handles all of the OAuth signing and header creation and HTTP communication.
+//Class handles all of the OAuth signing, header creation, and HTTP communication.
 //Assumes XML body response (default for ETrade API v1).
 
 class OrderTicket
 {
     use EndPointTrait;
-    public $config;
+    protected $config;
 
-    public function __construct($root_dir)
+    public function __construct($root_dir, Config $config)
     {
         $this->root_dir = $root_dir;
         $this->file_name = "";
         $this->ticket_data = "";
         $this->ticket_clone = "";
-        $this->config = new Config(true);
+        $this->config = $config;
     }
    
     //Load File and Set Root

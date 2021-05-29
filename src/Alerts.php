@@ -7,17 +7,17 @@ namespace phpetrade;
 class Alerts
 {
     use EndPointTrait;
-    public $config;
+    protected $config;
 
-    function __construct()
+    function __construct(Config $config)
     {
-        $this->config = new Config(true);
+        $this->config = $config;
     }
     
     public function AlertsList($queryStringArray)
     {
         $this_url = $this->buildFullURL($this->config->list_alerts_url,$queryStringArray);
-        return $this->getResponse($this_url);
+        return $this->getResponse($this->config,$this_url);
     }
 
     public function AlertsListDetails($queryStringArray)
@@ -32,7 +32,7 @@ class Alerts
         {
             $this_url = $this->buildFullURL($this->config->alert_details_url,$queryStringArray);
         }
-        return $this->getResponse($this_url);
+        return $this->getResponse($this->config,$this_url);
     }
 
     public function AlertsDelete($queryStringArray)
@@ -48,7 +48,7 @@ class Alerts
             $this_url = $this->buildFullURL($this->config->delete_alert_url,$queryStringArray);
         }
         $method = "DELETE";
-        return $this->getResponse($this_url,$method);
+        return $this->getResponse($this->config,$this_url,$method);
     }
 
     

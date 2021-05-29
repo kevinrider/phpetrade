@@ -5,16 +5,18 @@ exit;
 require_once __DIR__ . '/../vendor/autoload.php';
 use phpetrade\Accounts;
 use phpetrade\OAuthHTTP;
+use phpetrade\Config;
 
-$ac_obj = new Accounts();
+$config = new Config(true);
+$ac_obj = new Accounts($config);
 
 $ac = $ac_obj->GetAccountList();
 $account_id_key = (string) $ac->Accounts->Account->accountIdKey;
 
 $client_order_id = 'test' . rand_order_id(); //Some unique random order id
-$url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_preview_url);
+$url = str_replace("accountkeyid",$account_id_key,$config->order_preview_url);
 print "$url\n";
-$OAuthHTTPObj = new OAuthHTTP($url,"POST");
+$OAuthHTTPObj = new OAuthHTTP($config,$url,"POST");
 $OAuthHTTPObj->post_request = preview_request($client_order_id);
 //print_r($OAuthHTTPObj->post_request);
 //exit;
@@ -23,9 +25,9 @@ print_r($ord_preview);
 //exit;
 $preview_id = $ord_preview->PreviewIds->previewId;
 
-$url = str_replace("accountkeyid",$account_id_key,$ac_obj->config->order_place_url);
+$url = str_replace("accountkeyid",$account_id_key,$config->order_place_url);
 print "$url\n";
-$OAuthHTTPObj = new OAuthHTTP($url,"POST");
+$OAuthHTTPObj = new OAuthHTTP($config,$url,"POST");
 $OAuthHTTPObj->post_request = place_request($client_order_id,$preview_id);
 print $OAuthHTTPObj->post_request;
 //exit;

@@ -7,11 +7,11 @@ namespace phpetrade;
 class Market
 {
     use EndPointTrait;
-    public $config;
+    protected $config;
 
-    function __construct()
+    function __construct(Config $config)
     {
-        $this->config = new Config(true);
+        $this->config = $config;
     }
 
     public function MarketGetQuotes($queryStringArray)
@@ -26,7 +26,7 @@ class Market
         {
             $this_url = $this->buildFullURL($this->config->url_getquote,$queryStringArray);
         }
-        return $this->getResponse($this_url);
+        return $this->getResponse($this->config,$this_url);
     }
 
     public function MarketLookUp($queryStringArray)
@@ -41,7 +41,7 @@ class Market
         {
             $this_url = $this->buildFullURL($this->config->url_marketlookup,$queryStringArray);
         }
-        return $this->getResponse($this_url);
+        return $this->getResponse($this->config,$this_url);
     }
 
     public function MarketGetOptionChain($queryStringArray)
@@ -56,7 +56,7 @@ class Market
         {
             $this_url = $this->buildFullURL($this->config->url_optionchains,$queryStringArray);
         }
-        return $this->getResponse($this_url);
+        return $this->getResponse($this->config,$this_url);
     }
 
     public function MarketGetOptionExp($queryStringArray)
@@ -71,7 +71,7 @@ class Market
         {
             $this_url = $this->buildFullURL($this->config->url_expirydates,$queryStringArray);
         }
-        return $this->getResponse($this_url);
+        return $this->getResponse($this->config,$this_url);
     }
 
     

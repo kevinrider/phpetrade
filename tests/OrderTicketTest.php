@@ -4,17 +4,20 @@ use phpetrade\OrderTicket;
 use phpetrade\Accounts;
 use phpetrade\OAuthHTTP;
 use phpetrade\Order;
+use phpetrade\Config;
 
 final class OrderTicketTest extends TestCase
 {
     private $ord_obj;
     private $ac_obj;
     private $account_id_key;
+    private $config;
 
     protected function setUp(): void
     {
-        $this->ord_obj = new OrderTicket(dirname(__FILE__) . "/../src/tickets");
-        $this->ac_obj = new Accounts();
+        $this->config = new Config(true);
+        $this->ord_obj = new OrderTicket(dirname(__FILE__) . "/../src/tickets",$this->config);
+        $this->ac_obj = new Accounts($this->config);
         $response = $this->ac_obj->GetAccountList();
         $this->account_id_key = (string) $response->Accounts->Account->accountIdKey;
     }
@@ -70,8 +73,8 @@ final class OrderTicketTest extends TestCase
         $this->ord_obj->Clone();
         $this->ord_obj->Parse("PLACEPREVIEW", "Preview");
         $this->ord_obj->Parse("PREVIEWID", "");
-        $url = str_replace("accountkeyid",$this->account_id_key,$this->ord_obj->config->order_preview_url);
-        $OAuthHTTPObj = new OAuthHTTP($url,"POST");
+        $url = str_replace("accountkeyid",$this->account_id_key,$this->config->order_preview_url);
+        $OAuthHTTPObj = new OAuthHTTP($this->config,$url,"POST");
         $OAuthHTTPObj->post_request = $this->ord_obj->ticket_data;
         $ord_preview = $OAuthHTTPObj->GetResponse();
         $preview_id = "";
@@ -82,7 +85,7 @@ final class OrderTicketTest extends TestCase
             $this->ord_obj->ticket_data = $this->ord_obj->ticket_clone;
             $this->ord_obj->Parse("PLACEPREVIEW", "Place");
             $this->ord_obj->Parse("PREVIEWID", "\n<PreviewIds>\n<previewId>$preview_id</previewId>\n</PreviewIds>");
-            $url = str_replace("accountkeyid",$this->account_id_key,$this->ord_obj->config->order_place_url);
+            $url = str_replace("accountkeyid",$this->account_id_key,$this->config->order_place_url);
             $OAuthHTTPObj->url = $url;
             $OAuthHTTPObj->post_request = $this->ord_obj->ticket_data;
             $ord_place = $OAuthHTTPObj->GetResponse();
@@ -94,15 +97,14 @@ final class OrderTicketTest extends TestCase
         $this->assertEquals("5",(int) $ord_place->Order->limitPrice);
         $this->assertEquals("SPY",$ord_place->Order->Instrument[0]->Product->symbol);
         $this->assertEquals("1",$ord_place->Order->Instrument[0]->quantity);
-        $this->assertEquals("1026",$ord_place->Order->messages->Message->code);
-        $this->assertMatchesRegularExpression('/successfully entered/', (string) $ord_place->Order->messages->Message->description);
+        $this->assertMatchesRegularExpression('/^102/',(string) $ord_place->Order->messages->Message->code);
 
         //Cancel Iron Condor
-        $cord_obj = new Order();
+        $cord_obj = new Order($this->config);
         $order_cancel_para["CancelOrderRequest"]["orderId"] = (int) $ord_place->OrderIds->orderId;
         $ord_cancel = $cord_obj->CancelOrder($this->account_id_key,$order_cancel_para);
         $this->assertIsObject($ord_cancel);
         $this->assertEquals("5011",$ord_cancel->Messages->Message->code);
-        $this->assertMatchesRegularExpression('/200/',(string) $ord_cancel->Messages->Message->description);
+        $this->assertMatchesRegularExpression('/^200/',(string) $ord_cancel->Messages->Message->description);
     }
 }

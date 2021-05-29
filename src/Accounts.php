@@ -7,17 +7,17 @@ namespace phpetrade;
 class Accounts
 {
     use EndPointTrait;
-    public $config;
+    protected $config;
 
-    function __construct()
+    function __construct(Config $config)
     {
-        $this->config = new Config(true);
+        $this->config = $config;
     }
     
     public function GetAccountList()
     {
         //No input parameters
-        return $this->getResponse($this->config->url_accountlist);
+        return $this->getResponse($this->config,$this->config->url_accountlist);
     }
 
     public function GetAccountBalance($account_id_key,$queryStringArray)
@@ -27,7 +27,7 @@ class Accounts
         {
             $this_url = $this->buildFullURL($this_url,$queryStringArray);
         }
-        return $this->getResponse($this_url);
+        return $this->getResponse($this->config,$this_url);
     }
 
     public function GetAccountTransactions($account_id_key,$queryStringArray)
@@ -37,7 +37,7 @@ class Accounts
         {
             $this_url = $this->buildFullURL($this_url,$queryStringArray);
         }
-        return $this->getResponse($this_url);
+        return $this->getResponse($this->config,$this_url);
     }
 
     public function GetAccountTransactionDetails($account_id_key,$tran_id,$queryStringArray)
@@ -48,7 +48,7 @@ class Accounts
         {
             $this_url = $this->buildFullURL($this_url,$queryStringArray);
         }
-        return $this->getResponse($this_url);
+        return $this->getResponse($this->config,$this_url);
     }
 
     public function GetAccountPortfolio($account_id_key,$queryStringArray)
@@ -58,7 +58,7 @@ class Accounts
         {
             $this_url = $this->buildFullURL($this_url,$queryStringArray);
         }
-        return $this->getResponse($this_url);
+        return $this->getResponse($this->config,$this_url);
 
     } 
 

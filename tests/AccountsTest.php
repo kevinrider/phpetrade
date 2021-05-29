@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 use phpetrade\Accounts;
+use phpetrade\Config;
 
 final class AccountsTest extends TestCase
 {
@@ -8,7 +9,8 @@ final class AccountsTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->ac_obj = new Accounts();
+        $config = new Config(true);
+        $this->ac_obj = new Accounts($config);
     }
 
     public function testGetAccountList(): string

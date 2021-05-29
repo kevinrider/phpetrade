@@ -1,8 +1,10 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
 use phpetrade\Authorization;
+use phpetrade\Config;
 
-$auth_obj = new Authorization();
+$config = new Config(true);
+$auth_obj = new Authorization($config);
 
 //Renew authenticated tokens
 //Expect: "Access Token has been renewed"

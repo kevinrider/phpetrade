@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 use phpetrade\Alerts;
+use phpetrade\Config;
 
 final class AlertsTest extends TestCase
 {
@@ -8,7 +9,8 @@ final class AlertsTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->al_obj = new Alerts();
+        $config = new Config(true);
+        $this->al_obj = new Alerts($config);
     }
 
     public function testGetAlertsList(): int

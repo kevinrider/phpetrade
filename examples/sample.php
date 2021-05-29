@@ -8,8 +8,10 @@ use phpetrade\OAuthHTTP;
 use phpetrade\Market;
 use phpetrade\Alerts;
 use phpetrade\Order;
+use phpetrade\Config;
 
-$ac_obj = new Accounts();
+$config = new Config(true);
+$ac_obj = new Accounts($config);
 
 //Account List End Point
 //Must get the random accountIdKey before calling any of the other Account end points.
@@ -49,7 +51,7 @@ $ac_port = $ac_obj->GetAccountPortfolio($account_id_key,$account_port_para);
 //print_r($ac_port);
 
 //Market End Point
-$mk_obj = new Market();
+$mk_obj = new Market($config);
 
 //$market_quotes["symbols"] = "MRK"; //Format Single Ticker Quote
 //Format Multi Ticker Quote
@@ -92,7 +94,7 @@ $mk_optionchainexp = $mk_obj->MarketGetOptionExp($market_optionchainexp_para);
 //print_r($mk_optionchainexp);
 
 //Alerts End Point
-$al_obj = new Alerts();
+$al_obj = new Alerts($config);
 
 //List Alerts
 $alerts_list_para["count"] = "5";
@@ -120,7 +122,7 @@ print_r($al_details);
 */
 
 //Order End point
-$ord_obj = new Order();
+$ord_obj = new Order($config);
 
 //List Orders
 $order_list_para["count"] = "2";

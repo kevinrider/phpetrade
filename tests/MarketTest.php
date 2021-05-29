@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 use phpetrade\Market;
+use phpetrade\Config;
 
 final class MarketTest extends TestCase
 {
@@ -8,7 +9,8 @@ final class MarketTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->mk_obj = new Market();
+        $config = new Config(true);
+        $this->mk_obj = new Market($config);
     }
 
     public function testMarketGetQuotes(): void

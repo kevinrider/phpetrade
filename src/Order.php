@@ -9,11 +9,11 @@ namespace phpetrade;
 class Order
 {
     use EndPointTrait;
-    public $config;
+    protected $config;
 
-    function __construct()
+    function __construct(Config $config)
     {
-        $this->config = new Config(true);
+        $this->config = $config;
     }
     
     public function ListOrders($account_id_key,$queryStringArray)
@@ -23,7 +23,7 @@ class Order
         {
             $this_url = $this->buildFullURL($this_url,$queryStringArray);
         }
-        return $this->getResponse($this_url);
+        return $this->getResponse($this->config,$this_url);
     }
     
     public function PreviewOrder($account_id_key,$orderRequestArray)
@@ -34,7 +34,7 @@ class Order
             print "Must submit order to Preview Order!\n";
             exit;
         }
-        return $this->getResponse($this_url,"POST",$orderRequestArray);
+        return $this->getResponse($this->config,$this_url,"POST",$orderRequestArray);
     }
     
     public function PlaceOrder($account_id_key,$orderRequestArray)
@@ -45,7 +45,7 @@ class Order
             print "Must submit order to Place Order!\n";
             exit;
         }
-        return $this->getResponse($this_url,"POST",$orderRequestArray);
+        return $this->getResponse($this->config,$this_url,"POST",$orderRequestArray);
     }
     
     public function ChangePreviewOrder($account_id_key,$order_id,$orderRequestArray)
@@ -57,7 +57,7 @@ class Order
             print "Must submit order to Change Preview Order!\n";
             exit;
         }
-        return $this->getResponse($this_url,"PUT",$orderRequestArray);
+        return $this->getResponse($this->config,$this_url,"PUT",$orderRequestArray);
     }
     
     public function PlaceChangeOrder($account_id_key,$order_id,$orderRequestArray)
@@ -69,7 +69,7 @@ class Order
             print "Must submit order to Place Change Order!\n";
             exit;
         }
-        return $this->getResponse($this_url,"PUT",$orderRequestArray);
+        return $this->getResponse($this->config,$this_url,"PUT",$orderRequestArray);
     }
     
     public function CancelOrder($account_id_key,$orderRequestArray)
@@ -80,7 +80,7 @@ class Order
             print "Must submit orderId to Cancel Order!\n";
             exit;
         }
-        return $this->getResponse($this_url,"PUT",$orderRequestArray);
+        return $this->getResponse($this->config,$this_url,"PUT",$orderRequestArray);
     }
 
     public function buildFullURL($url,$queryParamsArray)

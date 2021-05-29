@@ -4,9 +4,9 @@ namespace phpetrade;
 trait EndPointTrait
 {
  
-    private function getResponse($url,$method = 'GET',$orderRequestArray = '')
+    private function getResponse(Config $config,$url,$method = 'GET',$orderRequestArray = '')
     {
-        $OAuthHTTPObj = new OAuthHTTP($url,$method);
+        $OAuthHTTPObj = new OAuthHTTP($config,$url,$method);
         if($orderRequestArray != "")
         {
             $OAuthHTTPObj->post_request = self::encodeXML($orderRequestArray,'',0);

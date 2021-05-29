@@ -2,6 +2,7 @@
 use PHPUnit\Framework\TestCase;
 use phpetrade\Order;
 use phpetrade\Accounts;
+use phpetrade\Config;
 
 final class OrderTest extends TestCase
 {
@@ -11,8 +12,9 @@ final class OrderTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->ord_obj = new Order();
-        $this->ac_obj = new Accounts();
+        $config = new Config(true);
+        $this->ord_obj = new Order($config);
+        $this->ac_obj = new Accounts($config);
         $response = $this->ac_obj->GetAccountList();
         $this->account_id_key = (string) $response->Accounts->Account->accountIdKey;
     }
