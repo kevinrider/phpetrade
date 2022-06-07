@@ -5,3 +5,4 @@ composer.phar
 /nbproject/
 src/Config.php
 src/tokens.inc
+.idea/*
