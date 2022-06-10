@@ -6,3 +6,5 @@ composer.phar
 src/Config.php
 src/tokens.inc
 .idea/*
+.php_cs*
+.php-cs*
