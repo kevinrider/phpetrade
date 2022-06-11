@@ -1,81 +1,102 @@
 <?php
+
 namespace phpetrade;
 
 //Preps the url and query string for the ETrade API "Accounts" end points
 //before passing the final url to oauthhttp class
 
+
+use SimpleXMLElement;
+
 class Accounts
 {
     use EndPointTrait;
-    protected $config;
 
-    function __construct(Config $config)
+    public function __construct(protected Config $config)
     {
-        $this->config = $config;
     }
-    
-    public function GetAccountList()
+
+    /**
+     * @return SimpleXMLElement|null
+     */
+    public function GetAccountList(): SimpleXMLElement|string|bool
     {
         //No input parameters
-        return $this->getResponse($this->config,$this->config->url_accountlist);
+        return $this->getResponse($this->config, $this->config->url_accountlist);
     }
 
-    public function GetAccountBalance($account_id_key,$queryStringArray)
+    /**
+     * @param $account_id_key
+     * @param $queryStringArray
+     * @return SimpleXMLElement|null
+     */
+    public function GetAccountBalance($account_id_key, $queryStringArray): SimpleXMLElement|string|bool
     {
-        $this_url = str_replace("accountkeyid",$account_id_key,$this->config->url_accountbalance);
-        if(isset($queryStringArray) && $queryStringArray != "")
-        {
-            $this_url = $this->buildFullURL($this_url,$queryStringArray);
+        $this_url = str_replace("accountkeyid", $account_id_key, $this->config->url_accountbalance);
+        if (isset($queryStringArray) && $queryStringArray != "") {
+            $this_url = $this->buildFullURL($this_url, $queryStringArray);
         }
-        return $this->getResponse($this->config,$this_url);
+        return $this->getResponse($this->config, $this_url);
     }
 
-    public function GetAccountTransactions($account_id_key,$queryStringArray)
+    /**
+     * @param $account_id_key
+     * @param $queryStringArray
+     * @return SimpleXMLElement|null
+     */
+    public function GetAccountTransactions($account_id_key, $queryStringArray): SimpleXMLElement|string|bool
     {
-        $this_url = str_replace("accountkeyid",$account_id_key,$this->config->url_accounttransactions);
-        if(isset($queryStringArray) && $queryStringArray != "")
-        {
-            $this_url = $this->buildFullURL($this_url,$queryStringArray);
+        $this_url = str_replace("accountkeyid", $account_id_key, $this->config->url_accounttransactions);
+        if (isset($queryStringArray) && $queryStringArray != "") {
+            $this_url = $this->buildFullURL($this_url, $queryStringArray);
         }
-        return $this->getResponse($this->config,$this_url);
+        return $this->getResponse($this->config, $this_url);
     }
 
-    public function GetAccountTransactionDetails($account_id_key,$tran_id,$queryStringArray)
+    /**
+     * @param $account_id_key
+     * @param $tran_id
+     * @param $queryStringArray
+     * @return SimpleXMLElement|null
+     */
+    public function GetAccountTransactionDetails($account_id_key, $tran_id, $queryStringArray): SimpleXMLElement|string|bool
     {
-        $this_url = str_replace("accountkeyid",$account_id_key,$this->config->url_accounttransactionsdetails);
-        $this_url = str_replace("transid",$tran_id,$this_url);
-        if(isset($queryStringArray) && $queryStringArray != "")
-        {
-            $this_url = $this->buildFullURL($this_url,$queryStringArray);
+        $this_url = str_replace("accountkeyid", $account_id_key, $this->config->url_accounttransactionsdetails);
+        $this_url = str_replace("transid", $tran_id, $this_url);
+        if (isset($queryStringArray) && $queryStringArray != "") {
+            $this_url = $this->buildFullURL($this_url, $queryStringArray);
         }
-        return $this->getResponse($this->config,$this_url);
+        return $this->getResponse($this->config, $this_url);
     }
 
-    public function GetAccountPortfolio($account_id_key,$queryStringArray)
+    /**
+     * @param $account_id_key
+     * @param $queryStringArray
+     * @return SimpleXMLElement|null
+     */
+    public function GetAccountPortfolio($account_id_key, $queryStringArray): SimpleXMLElement|string|bool
     {
-        $this_url = str_replace("accountkeyid",$account_id_key,$this->config->url_accountportfolio);
-        if(isset($queryStringArray) && $queryStringArray != "")
-        {
-            $this_url = $this->buildFullURL($this_url,$queryStringArray);
+        $this_url = str_replace("accountkeyid", $account_id_key, $this->config->url_accountportfolio);
+        if (isset($queryStringArray) && $queryStringArray != "") {
+            $this_url = $this->buildFullURL($this_url, $queryStringArray);
         }
-        return $this->getResponse($this->config,$this_url);
+        return $this->getResponse($this->config, $this_url);
+    }
 
-    } 
-
-    public function buildFullURL($url,$queryParamsArray)
+    /**
+     * @param $url
+     * @param $queryParamsArray
+     * @return string
+     */
+    public function buildFullURL($url, $queryParamsArray): string
     {
         $string = "";
-        foreach($queryParamsArray as $k=>$v)
-        {
-            if(!empty($k))
-            {
-                    $string .= $k.'='. urlencode($v) .'&';
+        foreach ($queryParamsArray as $k=>$v) {
+            if (!empty($k)) {
+                $string .= $k . '=' . urlencode($v) . '&';
             }
         }
-        $string = rtrim($string,"&");
-        $full_url = $url . "?" . $string;
-        return $full_url;
+        $string = rtrim($string, "&");
+        return $url . "?" . $string;
     }
 }
-
-?>
