@@ -2,9 +2,10 @@
 
 namespace phpetrade;
 
-//Preps the url and query string for the ETrade API "Accounts" end points
-//before passing the final url to oauthhttp class
-
+/*
+ * Preps the url and query string for the ETrade API "Accounts" end points
+ * before passing the final url to oauthhttp class
+ */
 
 use SimpleXMLElement;
 
