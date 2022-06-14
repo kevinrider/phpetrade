@@ -1,29 +1,36 @@
 <?php
+
 namespace phpetrade;
 
-//Revoke and Renew Access Tokens.
-//Get Request Token, Authorize App, and Get Access Token endpoints are handled in auth.php
+/*
+ * Revoke and Renew Access Tokens.
+ * Get Request Token, Authorize App, and Get Access Token endpoints are handled in auth.php
+ */
+use SimpleXMLElement;
 
 class Authorization
 {
     use EndPointTrait;
-    protected $config;
 
-    function __construct(Config $config)
+    public function __construct(protected Config $config)
     {
-        $this->config = $config;
     }
 
-    public function RenewAccessToken()
-    {
-        //No input parameters
-        return $this->getResponse($this->config,$this->config->renew_token_url);
-    }
-
-    public function RevokeAccessToken()
+    /**
+     * @return SimpleXMLElement|string|bool|null
+     */
+    public function RenewAccessToken(): SimpleXMLElement|string|bool|null
     {
         //No input parameters
-        return $this->getResponse($this->config,$this->config->revoke_token_url);
+        return $this->getResponse($this->config, $this->config->renew_token_url);
     }
 
+    /**
+     * @return SimpleXMLElement|string|bool|null
+     */
+    public function RevokeAccessToken(): SimpleXMLElement|string|bool|null
+    {
+        //No input parameters
+        return $this->getResponse($this->config, $this->config->revoke_token_url);
+    }
 }
