@@ -11,7 +11,8 @@
     ],
     "require": {
 	    "php": "^8.0",
-        "ext-simplexml": "*"
+        "ext-simplexml": "*",
+        "ext-oauth": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^9"
