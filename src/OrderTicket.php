@@ -1,79 +1,80 @@
 <?php
+
 namespace phpetrade;
 
-//Class handles all of the OAuth signing, header creation, and HTTP communication.
-//Assumes XML body response (default for ETrade API v1).
+/*
+ * Builds an option order ticket from a pre-defined xml order file
+ */
 
 class OrderTicket
 {
     use EndPointTrait;
-    protected $config;
 
-    public function __construct($root_dir, Config $config)
-    {
-        $this->root_dir = $root_dir;
-        $this->file_name = "";
-        $this->ticket_data = "";
-        $this->ticket_clone = "";
-        $this->config = $config;
+    public function __construct(
+        public string $root_dir,
+        protected Config $config,
+        public string $file_name = "",
+        public string $ticket_data = "",
+        public string $ticket_clone = ""
+    ) {
     }
-   
-    //Load File and Set Root
-    public function LoadOptionOrderTicket($ticket_type)
+
+    /**
+     * @param $ticket_type
+     * @return void
+     * Load File and Set Root
+     */
+    public function LoadOptionOrderTicket($ticket_type): void
     {
-        if($ticket_type == "single")
-        {
+        if ($ticket_type == "single") {
             $this->file_name = "$this->root_dir/singleoption.xml";
-        }
-        elseif($ticket_type == "double")
-        {
+        } elseif ($ticket_type == "double") {
             $this->file_name = "$this->root_dir/doubleoption.xml";
-        }
-        elseif($ticket_type == "triple")
-        {
+        } elseif ($ticket_type == "triple") {
             $this->file_name = "$this->root_dir/tripleoption.xml";
-        }
-        elseif($ticket_type == "quad")
-        {
+        } elseif ($ticket_type == "quad") {
             $this->file_name = "$this->root_dir/quadoption.xml";
-        }
-        elseif($ticket_type == "buywrite")
-        {
+        } elseif ($ticket_type == "buywrite") {
             $this->file_name = "$this->root_dir/buywrite.xml";
+        } else {
+            $this->TicketError("Ticket Load: $ticket_type Does Not Exist");
         }
-        else 
-        {
-            $message = "Ticket Load: $ticket_file Does Not Exist";
-            $this->TicketError("$message");
-        }
-        if(file_exists($this->file_name)) 
-        {
-            $fd = fopen($this->file_name,"r");
+        if (file_exists($this->file_name)) {
+            $fd = fopen($this->file_name, "r");
             $this->ticket_data = fread($fd, filesize($this->file_name));
             fclose($fd);
-        }
-        else 
-        {
-            $message = "Ticket Load: " . $this->file_name . " Does Not Exist";
-            $this->TicketError("$message");
+        } else {
+            $this->TicketError("Ticket Load: " . $this->file_name . " Does Not Exist");
         }
     }
-    
-    public function Parse($key, $value)
+
+    /**
+     * @param $key
+     * @param $value
+     * @return void
+     */
+    public function Parse($key, $value): void
     {
         $key = '/{' . "$key" . '}/';
-        $this->ticket_data = preg_replace("$key","$value",$this->ticket_data);
+        $this->ticket_data = preg_replace("$key", "$value", $this->ticket_data);
     }
-    
-    public function Clone()
+
+    /**
+     * @return void
+     */
+    public function Clone(): void
     {
         $this->ticket_clone = "$this->ticket_data";
     }
-    
-    //Raise Error Function
-    public function TicketError($message)
+
+    /**
+     * @param $message
+     * @return void
+     * Raise Error Function
+     */
+    public function TicketError($message): void
     {
-            trigger_error($message);
-            exit;
+        trigger_error($message);
+        exit;
     }
 }
