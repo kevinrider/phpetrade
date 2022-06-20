@@ -7,6 +7,7 @@ namespace phpetrade;
  * before passing the final url to oauthhttp class
  */
 
+use OAuthException;
 use SimpleXMLElement;
 
 class Accounts
@@ -18,7 +19,8 @@ class Accounts
     }
 
     /**
-     * @return SimpleXMLElement|null
+     * @return SimpleXMLElement|string|bool
+     * @throws OAuthException
      */
     public function GetAccountList(): SimpleXMLElement|string|bool
     {
@@ -29,7 +31,8 @@ class Accounts
     /**
      * @param $account_id_key
      * @param $queryStringArray
-     * @return SimpleXMLElement|null
+     * @return SimpleXMLElement|string|bool
+     * @throws OAuthException
      */
     public function GetAccountBalance($account_id_key, $queryStringArray): SimpleXMLElement|string|bool
     {
@@ -43,7 +46,8 @@ class Accounts
     /**
      * @param $account_id_key
      * @param $queryStringArray
-     * @return SimpleXMLElement|null
+     * @return SimpleXMLElement|string|bool
+     * @throws OAuthException
      */
     public function GetAccountTransactions($account_id_key, $queryStringArray): SimpleXMLElement|string|bool
     {
@@ -58,7 +62,8 @@ class Accounts
      * @param $account_id_key
      * @param $tran_id
      * @param $queryStringArray
-     * @return SimpleXMLElement|null
+     * @return SimpleXMLElement|string|bool
+     * @throws OAuthException
      */
     public function GetAccountTransactionDetails($account_id_key, $tran_id, $queryStringArray): SimpleXMLElement|string|bool
     {
@@ -73,7 +78,8 @@ class Accounts
     /**
      * @param $account_id_key
      * @param $queryStringArray
-     * @return SimpleXMLElement|null
+     * @return SimpleXMLElement|string|bool
+     * @throws OAuthException
      */
     public function GetAccountPortfolio($account_id_key, $queryStringArray): SimpleXMLElement|string|bool
     {
