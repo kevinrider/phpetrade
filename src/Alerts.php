@@ -6,6 +6,8 @@ namespace phpetrade;
  * Preps the url and query string for the ETrade API "Alerts" end points
  * before passing the final url to oauthhttp class
  */
+
+use OAuthException;
 use SimpleXMLElement;
 
 class Alerts
@@ -19,6 +21,7 @@ class Alerts
     /**
      * @param $queryStringArray
      * @return SimpleXMLElement|string|bool
+     * @throws OAuthException
      */
     public function AlertsList($queryStringArray): SimpleXMLElement|string|bool
     {
@@ -29,6 +32,7 @@ class Alerts
     /**
      * @param $queryStringArray
      * @return SimpleXMLElement|string|bool
+     * @throws OAuthException
      */
     public function AlertsListDetails($queryStringArray): SimpleXMLElement|string|bool
     {
@@ -45,6 +49,7 @@ class Alerts
     /**
      * @param $queryStringArray
      * @return SimpleXMLElement|string|bool
+     * @throws OAuthException
      */
     public function AlertsDelete($queryStringArray): SimpleXMLElement|string|bool
     {

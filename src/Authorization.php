@@ -6,6 +6,8 @@ namespace phpetrade;
  * Revoke and Renew Access Tokens.
  * Get Request Token, Authorize App, and Get Access Token endpoints are handled in auth.php
  */
+
+use OAuthException;
 use SimpleXMLElement;
 
 class Authorization
@@ -18,6 +20,7 @@ class Authorization
 
     /**
      * @return SimpleXMLElement|string|bool|null
+     * @throws OAuthException
      */
     public function RenewAccessToken(): SimpleXMLElement|string|bool|null
     {
@@ -27,6 +30,7 @@ class Authorization
 
     /**
      * @return SimpleXMLElement|string|bool|null
+     * @throws OAuthException
      */
     public function RevokeAccessToken(): SimpleXMLElement|string|bool|null
     {
