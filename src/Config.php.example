@@ -6,75 +6,73 @@ namespace phpetrade;
 
 class Config
 {
-    public $etrade_oauth_server = 'https://api.etrade.com';
-    public $authorize_url = 'https://us.etrade.com/e/t/etws/authorize';
-    public $debug_mode = 0; //1: Dumps OAUTH/HTTP communication log on error.  0: No extended error reporting 
-    public $token_file;
-    public $oauth_access_token;
-    public $oauth_access_token_secret;
+    public string $etrade_oauth_server = 'https://api.etrade.com';
+    public string $authorize_url = 'https://us.etrade.com/e/t/etws/authorize';
+    public int $debug_mode = 0; //1: Dumps OAUTH/HTTP communication log on error.  0: No extended error reporting
+    public string $token_file;
+    public mixed $oauth_access_token;
+    public mixed $oauth_access_token_secret;
 
-    public $app_key;
-    public $app_secret;
-    public $etrade_server;
+    public string $app_key;
+    public string $app_secret;
+    public string $etrade_server;
 
     //Authorization Endpoints
-    public $request_token_url;
-    public $access_token_url;
-    public $renew_token_url;
-    public $revoke_token_url;
+    public string $request_token_url;
+    public string $access_token_url;
+    public string $renew_token_url;
+    public string $revoke_token_url;
 
     //Account Endpoints
-    public $url_accountlist;
-    public $url_accountbalance;
-    public $url_accounttransactions;
-    public $url_accounttransactionsdetails;
-    public $url_accountportfolio;
+    public string $url_accountlist;
+    public string $url_accountbalance;
+    public string $url_accounttransactions;
+    public string $url_accounttransactionsdetails;
+    public string $url_accountportfolio;
 
     //Market Endpoints
-    public $url_getquote;
-    public $url_marketlookup;
-    public $url_optionchains;
-    public $url_expirydates;
+    public string $url_getquote;
+    public string $url_marketlookup;
+    public string $url_optionchains;
+    public string $url_expirydates;
 
     //Alerts Endpoints
-    public $list_alerts_url;
-    public $alert_details_url;
-    public $delete_alert_url;
+    public string $list_alerts_url;
+    public string $alert_details_url;
+    public string $delete_alert_url;
 
     //Order Endpoints
-    public $order_list_url;
-    public $order_preview_url;
-    public $order_place_url;
-    public $order_cancel_url;
-    public $order_change_preview_url;
-    public $order_change_place_url;
+    public string $order_list_url;
+    public string $order_preview_url;
+    public string $order_place_url;
+    public string $order_cancel_url;
+    public string $order_change_preview_url;
+    public string $order_change_place_url;
 
-    function __construct($load_tokens = false)
+    public function __construct($load_tokens = false)
     {
         $str = "sandbox";
-        switch($str)
-        {
-            case 'prod' :
+        switch ($str) {
+            case 'prod':
                 //Fill in app_key and app_secret with the issued production keys.
                 $this->app_key = '';
                 $this->app_secret = '';
                 $this->etrade_server = 'https://api.etrade.com';
                 break;
-            case 'sandbox' : 	
+            case 'sandbox':
                 //Fill in the app_key and app_secret with the issued sandbox keys.
                 $this->app_key = '';
                 $this->app_secret = '';
                 $this->etrade_server = 'https://apisb.etrade.com';
                 break;
-            default : 
+            default:
                 echo "Please set this as a Production or Sandbox environment in Config.php file and try again.\n";
                 exit;
         }
 
         //Load Tokens
         $this->token_file = dirname(__FILE__) . "/tokens.inc";
-        if($load_tokens)
-        {
+        if ($load_tokens) {
             $s = file_get_contents($this->token_file);
             $token_array = unserialize($s);
             $this->oauth_access_token = $token_array[0];
