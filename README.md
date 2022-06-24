@@ -27,18 +27,21 @@ if you are going short.  Do not use priceType=MARKET trades unless you want an i
 In order to use this code you need to have an E*Trade API account setup.  Visit this [link](https://developer.etrade.com/home) and click the Log On button to start the process.
 
 Clone or download the repository to a directory of your choice.  You will need
-a working PHP 7 cli and the excellent [pecl oauth library](https://pecl.php.net/package/oauth) installed 
+a working PHP 8 cli and the excellent [pecl oauth library](https://pecl.php.net/package/oauth) installed 
 in order to use phpetrade.  
 
 Installing on Ubuntu will go something like this.  INSTALL_DIR is wherever you decided to clone phpetrade.  The code
 can be installed anywhere and does not necessarily need to be installed in a web server accessible directory.  All example scripts run from the command line.
 ```
-sudo apt-get install php7.2-cli
+sudo apt-get install php8.1-cli
 - or -
 sudo apt-get install php-cli
+
 - then -
 pecl channel-update pecl.php.net
 pecl install oauth
+- or -
+sudo apt-get install php8.1-oauth
 
 - then - 
 cd to the INSTALL_DIR/phpetrade/examples.  
@@ -50,8 +53,8 @@ OAuth
 OAuth support => enabled
 ```
 If php-cli and pecl oauth module install correctly but you don't see OAuth => enabled, you can manually
-enable the module in php-cli php.ini file (which is different than the php web server module php.ini).  The
-cli php.ini is usually available at something like: /etc/php/7.2/cli/php.ini (where 7.2 is the php version you are currently using).  Depending on the operating system you're using, the php.ini may be stored someplace else or is even the same as the web server module php.ini.
+enable the module in php-cli php.ini file (which is different from the php web server module php.ini).  The
+cli php.ini is usually available at something like: /etc/php/8.1/cli/php.ini (where 8.1 is the php version you are currently using).  Depending on the operating system you're using, the php.ini may be stored someplace else or is even the same as the web server module php.ini.
 
 ## Composer
 
@@ -61,7 +64,7 @@ cd INSTALL_DIR/phpetrade
 curl -sS https://getcomposer.org/installer | php
 php composer.phar update
 ```
-Currently there are no requirements other than PHP 7.2 or greater.  However using composer will setup the autoloading of the API endpoint classes and a few config files.  If you install phpetrade from Packagist through a composer.json requirement (for building your own project), remember to cd  PROJECT_DIR/vendor/kevinrider/phpetrade and run
+Currently there are no requirements other than PHP 8.0 or greater.  However using composer will setup the autoloading of the API endpoint classes and a few config files.  If you install phpetrade from Packagist through a composer.json requirement (for building your own project), remember to cd  PROJECT_DIR/vendor/kevinrider/phpetrade and run
 ```composer install``` in order to generate the autoload.php file for the included auth.php and example scripts.
 
 ## Authentication
@@ -127,7 +130,7 @@ and these orders may fill at some point.
 
 ## PHPUnit
 **Do not run the unit tests unless you are a developer and read this section carefully.**
-All unit tests reside in the tests directory and a phpunit.xml file is provided in the project root for PHPUnit 9.  Due to the complexity of mocking a large portion of the E*Trade API, the unit tests assume a production account and operate against the live API.  Any tests that do more than just read from the API (OrderTest.php, OrderTicketTest.php, AlertTest.php) have been disabled in the phpunit.xml file.  AlertTest.php will delete the most recent alert message, OrderTest.php tests the Preview Order -> Place Order -> Preview Change Order -> Place Change Order -> Cancel Order process with AMZN at a very low price and is very unlikely to fill ever.  OrderTicketTest.php tests the Preview Order -> Place Order -> Cancel Order process with a SPY Iron Condor (four option legs in one order) for 12/2021 expiration, this may fill at some future date (like the example scripts) and it is important to verify it will not fill at the limit price before running OrderTicketTest.php during market hours.
+All unit tests reside in the tests directory and a phpunit.xml file is provided in the project root for PHPUnit 9.  Due to the complexity of mocking a large portion of the E*Trade API, the unit tests assume a production account and operate against the live API.  Any tests that do more than just read from the API (OrderTest.php, OrderTicketTest.php, AlertTest.php) have been disabled in the phpunit.xml file.  AlertTest.php will delete the most recent alert message, OrderTest.php tests the Preview Order -> Place Order -> Preview Change Order -> Place Change Order -> Cancel Order process with AMZN at a very low price and is very unlikely to fill ever.  OrderTicketTest.php tests the Preview Order -> Place Order -> Cancel Order process with a SPY Iron Condor (four option legs in one order) for 12/2022 expiration, this may fill at some future date (like the example scripts) and it is important to verify it will not fill at the limit price before running OrderTicketTest.php during market hours.
 
 The runtests.php script authenticates phpetrade before running the unit tests.  Note that the last successful unit test revokes the oauth tokens and signs out of the API.
 
@@ -320,7 +323,7 @@ to use the callback url, doing away with the command line authorization.  The ca
 
 ## The code won't run on XYZ operating system!
 
-Make sure you are running at least PHP 7 and have the OAuth pecl module correctly installed.  Beyond these requirements there is no operating system specific code in the libraries.
+Make sure you are running at least PHP 8 and have the OAuth pecl module correctly installed.  Beyond these requirements there is no operating system specific code in the libraries.
 
 ## Is there some way to automate the login process for unattended trading?
 
