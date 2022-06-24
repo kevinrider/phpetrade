@@ -28,7 +28,7 @@ In order to use this code you need to have an E*Trade API account setup.  Visit 
 
 Clone or download the repository to a directory of your choice.  You will need
 a working PHP 8 cli and the excellent [pecl oauth library](https://pecl.php.net/package/oauth) installed 
-in order to use phpetrade.  
+in order to use phpetrade.  Version [v1.2](https://github.com/kevinrider/phpetrade/releases/tag/v1.2) was the last version to support PHP 7.
 
 Installing on Ubuntu will go something like this.  INSTALL_DIR is wherever you decided to clone phpetrade.  The code
 can be installed anywhere and does not necessarily need to be installed in a web server accessible directory.  All example scripts run from the command line.
