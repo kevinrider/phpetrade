@@ -1,11 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 use phpetrade\Alerts;
 use phpetrade\Config;
 
 final class AlertsTest extends TestCase
 {
-    private $al_obj;
+    private Alerts $al_obj;
 
     protected function setUp(): void
     {
@@ -32,7 +34,7 @@ final class AlertsTest extends TestCase
         $alerts_details_para["id"] = "$alert_id";
         $al_details = $this->al_obj->AlertsListDetails($alerts_details_para);
         $this->assertIsObject($al_details);
-        $this->assertSame($alert_id,(int) $al_details->id);
+        $this->assertSame($alert_id, (int) $al_details->id);
         $this->assertTrue(isset($al_details->subject));
     }
 
@@ -43,7 +45,7 @@ final class AlertsTest extends TestCase
     {
         $alerts_delete_para["id"][] = "$alert_id";
         $al_delete = $this->al_obj->AlertsDelete($alerts_delete_para);
-        $this->assertEquals("SUCCESS",$al_delete->result);
+        $this->assertEquals("SUCCESS", $al_delete->result);
     }
 
     /**
@@ -51,7 +53,7 @@ final class AlertsTest extends TestCase
     */
     public function testbuildFullUrl($a, $b, $expected): void
     {
-        $this->assertSame($expected, $this->al_obj->buildFullUrl($a,$b));
+        $this->assertSame($expected, $this->al_obj->buildFullUrl($a, $b));
     }
 
     public function urlProvider(): array
