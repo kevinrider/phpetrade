@@ -1,11 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 use phpetrade\Market;
 use phpetrade\Config;
 
 final class MarketTest extends TestCase
 {
-    private $mk_obj;
+    private Market $mk_obj;
 
     protected function setUp(): void
     {
@@ -22,11 +24,11 @@ final class MarketTest extends TestCase
         $market_quotes_para["detailFlag"] = "ALL";
         $market_quotes_para["overrideSymbolCount"] = "true";
         $mk_quotes = $this->mk_obj->MarketGetQuotes($market_quotes_para);
-        $this->assertEquals("4",count($mk_quotes->QuoteData));
-        $this->assertEquals("MRK",$mk_quotes->QuoteData[0]->Product->symbol);
-        $this->assertEquals("PFE",$mk_quotes->QuoteData[1]->Product->symbol);
-        $this->assertEquals("JNJ",$mk_quotes->QuoteData[2]->Product->symbol);
-        $this->assertEquals("AZN",$mk_quotes->QuoteData[3]->Product->symbol);
+        $this->assertEquals("4", count($mk_quotes->QuoteData));
+        $this->assertEquals("MRK", $mk_quotes->QuoteData[0]->Product->symbol);
+        $this->assertEquals("PFE", $mk_quotes->QuoteData[1]->Product->symbol);
+        $this->assertEquals("JNJ", $mk_quotes->QuoteData[2]->Product->symbol);
+        $this->assertEquals("AZN", $mk_quotes->QuoteData[3]->Product->symbol);
     }
 
     public function testMarketLookup(): void
@@ -34,7 +36,7 @@ final class MarketTest extends TestCase
         $market_lookup_para["search"] = "Apple";
         $mk_lookup = $this->mk_obj->MarketLookUp($market_lookup_para);
         $this->assertGreaterThan(0, count($mk_lookup->Data));
-        $this->assertEquals("AAPL",$mk_lookup->Data[0]->symbol);
+        $this->assertEquals("AAPL", $mk_lookup->Data[0]->symbol);
     }
 
     public function testMarketGetOptionChain(): void
@@ -62,7 +64,7 @@ final class MarketTest extends TestCase
     */
     public function testbuildFullUrl($a, $b, $expected): void
     {
-        $this->assertSame($expected, $this->mk_obj->buildFullUrl($a,$b));
+        $this->assertSame($expected, $this->mk_obj->buildFullUrl($a, $b));
     }
 
     public function urlProvider(): array

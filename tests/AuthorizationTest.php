@@ -7,7 +7,7 @@ use phpetrade\Config;
 
 final class AuthorizationTest extends TestCase
 {
-    private $auth_obj;
+    private Authorization $auth_obj;
 
     /**
      * @return void
@@ -20,6 +20,7 @@ final class AuthorizationTest extends TestCase
 
     /**
      * @return void
+     * @throws OAuthException
      */
     public function testRenewAccessToken(): void
     {
@@ -28,6 +29,7 @@ final class AuthorizationTest extends TestCase
 
     /**
      * @return void
+     * @throws OAuthException
      */
     public function testRevokeAccessToken(): void
     {
@@ -37,6 +39,7 @@ final class AuthorizationTest extends TestCase
 
     /**
      * @return void
+     * @throws OAuthException
      */
     public function test401OnRevoked(): void
     {
