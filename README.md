@@ -1,6 +1,8 @@
 
 # phpetrade
 
+**If you are interested in E\*TRADE API PHP app development, please check out the [laravel-etrade](https://github.com/kevinrider/laravel-etrade) package which is an improved version of this library and easily integrates with recent [Laravel](https://laravel.com/) releases.**
+
 A library of php classes and examples that connects to the [E*Trade v1 REST API](https://apisb.etrade.com/docs/api/account/api-account-v1.html).
 Authorization, Accounts, Alerts, Market, and Order end points are fully implemented.
 
